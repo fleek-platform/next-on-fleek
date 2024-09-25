@@ -41,7 +41,7 @@ export function constructBuildOutputRecord(
 }
 
 export async function buildWorkerFile(
-	{ vercelConfig, vercelOutput }: ProcessedVercelOutput,
+	{ vercelConfig, vercelOutput, cid }: ProcessedVercelOutput,
 	{
 		outputDir,
 		workerJsDir,
@@ -51,6 +51,9 @@ export async function buildWorkerFile(
 		minify,
 	}: BuildWorkerFileOpts,
 ): Promise<string> {
+	// eslint-disable-next-line no-console
+	console.log('Building worker file');
+
 	const functionsFile = join(
 		tmpdir(),
 		`functions-${Math.random().toString(36).slice(2)}.js`,
@@ -78,7 +81,7 @@ export async function buildWorkerFile(
 	await build({
 		...defaultBuildOpts,
 		entryPoints: [join(templatesDir, '_worker.js')],
-		banner: { js: generateGlobalJs() },
+		banner: { js: generateGlobalJs(cid) },
 		bundle: true,
 		inject: [functionsFile],
 		external: ['node:*', './__next-on-pages-dist__/*', 'cloudflare:*'],

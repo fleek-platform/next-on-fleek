@@ -1,5 +1,6 @@
 import { dirname, join, relative, resolve } from 'path';
 import { copyFile, mkdir, rm } from 'fs/promises';
+import { uploadDir } from '../utils/ipfs';
 import {
 	addLeadingSlash,
 	normalizePath,
@@ -102,6 +103,7 @@ export async function processOutputDir(
 }
 
 export type ProcessedVercelOutput = {
+	cid: string;
 	vercelConfig: ProcessedVercelConfig;
 	vercelOutput: ProcessedVercelBuildOutput;
 };
@@ -116,17 +118,21 @@ export type ProcessedVercelOutput = {
  * @param edgeFunctions Map of edge functions from the file system.
  * @returns Processed Vercel build output map.
  */
-export function processVercelOutput(
+export async function processVercelOutput(
 	config: VercelConfig,
 	staticAssets: string[],
 	prerenderedRoutes = new Map<string, FunctionInfo>(),
 	edgeFunctions = new Map<string, FunctionInfo>(),
-): ProcessedVercelOutput {
+): Promise<ProcessedVercelOutput> {
+	console.log('Processing Vercel output');
+
 	const processedConfig = processVercelConfig(config);
 
 	const processedOutput = new Map<string, BuildOutputItem>(
 		staticAssets.map(path => [path, { type: 'static' }]),
 	);
+
+	const cid = await uploadDir({ filePath: join('.vercel', 'output', 'static') });
 
 	edgeFunctions.forEach(({ relativePath, outputPath, route }) => {
 		processedOutput.set(route?.path ?? stripFuncExtension(relativePath), {
@@ -153,6 +159,7 @@ export function processVercelOutput(
 	);
 
 	return {
+		cid,
 		vercelConfig: processedConfig,
 		vercelOutput: processedOutput,
 	};

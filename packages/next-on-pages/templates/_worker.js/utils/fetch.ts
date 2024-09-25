@@ -50,7 +50,7 @@ async function handleInlineAssetRequest(request: Request) {
 		try {
 			const url = new URL(request.url);
 			const binaryContent = (
-				await import(`./__next-on-pages-dist__/assets/${url.pathname}.bin`)
+				await import(`./__next-on-pages-dist__/assets/${url.pathname}`)
 			).default;
 
 			// Note: we can't generate a real Response object here because this fetch might be called

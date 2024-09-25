@@ -4,8 +4,27 @@
  *
  * @returns the plain javascript string that should be added at the top of the the _worker.js file
  */
-export function generateGlobalJs(): string {
+export function generateGlobalJs(cid: string): string {
 	return `
+		globalThis.cid = "${cid}";
+
+		globalThis.ASSETS = {
+			fetch: async (req) => {
+				try {
+					const { pathname } = new URL(req.url);
+					const noExt = pathname.replace(/\.html$/, '');
+					const withExt = \`\${noExt.replace(/^\\/$/, '/index')}.html\`;
+
+					const response = await fetch(\`https://\${cid}.ipfs.flk-ipfs.xyz\${withExt}\`);
+					return Promise.resolve(response);
+				} catch (error) {
+				 	console.log('Failed to fetch from IPFS');
+					console.error(error);
+					return Promise.reject(error);
+				}
+			}
+		};
+
 		import('node:buffer').then(({ Buffer }) => {
 			globalThis.Buffer = Buffer;
 		})

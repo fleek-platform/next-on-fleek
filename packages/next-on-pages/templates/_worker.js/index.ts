@@ -1,4 +1,4 @@
-import { SUSPENSE_CACHE_URL } from '../cache';
+import { FleekRequest, FleekResponse } from '../types';
 import { handleRequest } from './handleRequest';
 import { setupRoutesIsolation } from './routesIsolation';
 import {
@@ -6,7 +6,6 @@ import {
 	handleImageResizingRequest,
 	patchFetch,
 } from './utils';
-import type { AsyncLocalStorage } from 'node:async_hooks';
 
 declare const __NODE_ENV__: string;
 
@@ -16,63 +15,146 @@ declare const __BUILD_OUTPUT__: VercelBuildOutput;
 
 declare const __BUILD_METADATA__: NextOnPagesBuildMetadata;
 
-declare const __ALSes_PROMISE__: Promise<null | {
-	envAsyncLocalStorage: AsyncLocalStorage<unknown>;
-	requestContextAsyncLocalStorage: AsyncLocalStorage<unknown>;
-}>;
+export type LogLevel = 'debug' | 'info' | 'warn' | 'error';
 
-export default {
-	async fetch(request, env, ctx) {
-		setupRoutesIsolation();
-		patchFetch();
+export type LoggerOptions = {
+	level?: 'debug' | 'info' | 'warn' | 'error';
+};
 
-		const asyncLocalStorages = await __ALSes_PROMISE__;
+const format = (level: LogLevel, ...args: unknown[]) => {
+	return {
+		timestamp: new Date().toISOString(),
+		level,
+		message: args,
+	};
+};
 
-		if (!asyncLocalStorages) {
-			const reqUrl = new URL(request.url);
-			const noNodeJsCompatStaticPageRequest = await env.ASSETS.fetch(
-				`${reqUrl.protocol}//${reqUrl.host}/cdn-cgi/errors/no-nodejs_compat.html`,
-			);
-			const responseBody = noNodeJsCompatStaticPageRequest.ok
-				? noNodeJsCompatStaticPageRequest.body
-				: "Error: Could not access built-in Node.js modules. Please make sure that your Cloudflare Pages project has the 'nodejs_compat' compatibility flag set.";
-			return new Response(responseBody, { status: 503 });
+const wrapLogger = (): { logs: unknown[] } => {
+	const chunks: unknown[] = [];
+
+	console.log = (...args) => chunks.push(format('info', args));
+	console.debug = (...args) => chunks.push(format('debug', args));
+	console.info = (...args) => chunks.push(format('info', args));
+	console.warn = (...args) => chunks.push(format('warn', args));
+	console.error = (...args) => chunks.push(format('error', args));
+
+	return { logs: chunks };
+};
+
+type WrapperOptions = {
+	log?: LoggerOptions;
+};
+
+const wrapper = async (
+	fn: (request: FleekRequest) => Promise<FleekResponse>,
+	request: FleekRequest,
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	opts?: WrapperOptions,
+): Promise<FleekResponse> => {
+	const debug = request?.query?.debug ?? false;
+	const { logs } = wrapLogger();
+
+	try {
+		const response = await fn(request);
+
+		return debug
+			? {
+					status: response.status,
+					headers: response.headers,
+					body: {
+						success: true,
+						result: JSON.stringify(response),
+						logs,
+					},
+			  }
+			: response;
+	} catch (error: unknown) {
+		let errorMsg;
+		if (error instanceof Error && error.message) {
+			errorMsg = {
+				message: error.message,
+				name: error.name,
+				cause: error.cause,
+				stack: error.stack,
+			};
+		} else {
+			errorMsg = error;
 		}
 
-		const { envAsyncLocalStorage, requestContextAsyncLocalStorage } =
-			asyncLocalStorages;
-
-		return envAsyncLocalStorage.run(
-			// NOTE: The `SUSPENSE_CACHE_URL` is used to tell the Next.js Fetch Cache where to send requests.
-			{ ...env, NODE_ENV: __NODE_ENV__, SUSPENSE_CACHE_URL },
-			async () => {
-				return requestContextAsyncLocalStorage.run(
-					{ env, ctx, cf: request.cf },
-					async () => {
-						const url = new URL(request.url);
-						if (url.pathname.startsWith('/_next/image')) {
-							return handleImageResizingRequest(request, {
-								buildOutput: __BUILD_OUTPUT__,
-								assetsFetcher: env.ASSETS,
-								imagesConfig: __CONFIG__.images,
-							});
-						}
-
-						const adjustedRequest = adjustRequestForVercel(request);
-
-						return handleRequest(
-							{
-								request: adjustedRequest,
-								ctx,
-								assetsFetcher: env.ASSETS,
-							},
-							__CONFIG__,
-							__BUILD_OUTPUT__,
-							__BUILD_METADATA__,
-						);
+		return debug
+			? {
+					status: 500,
+					headers: {},
+					body: {
+						success: false,
+						error: errorMsg,
+						logs,
 					},
-				);
-			},
-		);
-	},
-} as ExportedHandler<{ ASSETS: Fetcher }>;
+			  }
+			: error;
+	}
+};
+
+export async function main(fleekRequest: FleekRequest): Promise<FleekResponse> {
+	const response: FleekResponse = await wrapper(
+		async (wrappedFleekRequest: FleekRequest): Promise<FleekResponse> => {
+			setupRoutesIsolation();
+
+			patchFetch();
+
+			const request = adaptFleekRequestToFetch(wrappedFleekRequest);
+
+			const url = new URL(request.url);
+			if (url.pathname.startsWith('/_next/image')) {
+				let res = await handleImageResizingRequest(request, {
+					buildOutput: __BUILD_OUTPUT__,
+					assetsFetcher: globalThis.ASSETS,
+					imagesConfig: __CONFIG__.images,
+				});
+				return adaptFetchResponseToFleekResponse(res);
+			}
+
+			const adjustedRequest = adjustRequestForVercel(request);
+
+			let res = await handleRequest(
+				{
+					request: adjustedRequest,
+					ctx: globalThis.CONTEXT,
+					assetsFetcher: globalThis.ASSETS,
+				},
+				__CONFIG__,
+				__BUILD_OUTPUT__,
+				__BUILD_METADATA__,
+			);
+
+			return await adaptFetchResponseToFleekResponse(res);
+		},
+		fleekRequest,
+	);
+
+	return response;
+}
+
+function adaptFleekRequestToFetch(fleekRequest: FleekRequest): Request {
+	return new Request(new URL(`http://0.0.0.0/${fleekRequest.path}`), {
+		method: fleekRequest.method,
+		headers: fleekRequest.headers,
+		body: fleekRequest.body,
+	});
+}
+
+async function adaptFetchResponseToFleekResponse(
+	response: Response,
+): Promise<FleekResponse> {
+	const body = await response.text();
+	let headers = {};
+	response.headers.forEach((value, key) => {
+		headers[key] = value;
+	});
+
+	return {
+		status: response.status,
+		headers,
+		body,
+	};
+}

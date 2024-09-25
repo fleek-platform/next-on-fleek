@@ -140,7 +140,7 @@ async function prepareAndBuildWorker(
 		});
 	}
 
-	const processedVercelOutput = processVercelOutput(
+	const processedVercelOutput = await processVercelOutput(
 		vercelConfig,
 		staticAssets,
 		processedFunctions?.collectedFunctions?.prerenderedFunctions,

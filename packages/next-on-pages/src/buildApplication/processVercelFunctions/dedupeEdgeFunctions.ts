@@ -662,7 +662,7 @@ async function processBundledAssets(
 			const originalFile = resolve(
 				config.filePathMap?.[path] ?? join(functionPath, path),
 			);
-			const destFile = `${join(nopDistDir, 'assets', name)}.bin`;
+			const destFile = `${join(nopDistDir, 'assets', name)}`;
 			const relativeName = join(relativePath, path);
 
 			const fileExists = await validateFile(originalFile);
