@@ -43,16 +43,18 @@ async function runNextOnPages(): Promise<void> {
 	}
 
 	// Run the build once
-	runBuild(args);
+	await runBuild(args);
 
 	// If the watch flag is set, run in watch mode
 	if (args.watch) {
-		setWatchMode(() => runBuild(args));
+		setWatchMode(async () => runBuild(args));
 	}
+
+	process.exit(0);
 }
 
-function runBuild(options: CliOptions) {
-	limit(async () => {
+async function runBuild(options: CliOptions) {
+	await limit(async () => {
 		if (limit.pendingCount === 0) {
 			await buildApplication(options);
 			if (options.watch) {

@@ -103,7 +103,7 @@ export async function processOutputDir(
 }
 
 export type ProcessedVercelOutput = {
-	cid: string;
+	cids: { rootCid: string; cidMap: Record<string, string> };
 	vercelConfig: ProcessedVercelConfig;
 	vercelOutput: ProcessedVercelBuildOutput;
 };
@@ -124,15 +124,21 @@ export async function processVercelOutput(
 	prerenderedRoutes = new Map<string, FunctionInfo>(),
 	edgeFunctions = new Map<string, FunctionInfo>(),
 ): Promise<ProcessedVercelOutput> {
-	console.log('Processing Vercel output');
-
 	const processedConfig = processVercelConfig(config);
 
 	const processedOutput = new Map<string, BuildOutputItem>(
 		staticAssets.map(path => [path, { type: 'static' }]),
 	);
 
-	const cid = await uploadDir({ filePath: join('.vercel', 'output', 'static') });
+	// eslint-disable-next-line no-console
+	console.log('Uploading static assets to IPFS');
+	const cids: { rootCid: string; cidMap: Record<string, string> } = await uploadDir({
+		filePath: join('.vercel', 'output', 'static'),
+	});
+	// eslint-disable-next-line no-console
+	console.log('Uploaded static assets to IPFS', cids.rootCid);
+	// eslint-disable-next-line no-console
+	console.log('Uploaded static assets to IPFS', cids.cidMap);
 
 	edgeFunctions.forEach(({ relativePath, outputPath, route }) => {
 		processedOutput.set(route?.path ?? stripFuncExtension(relativePath), {
@@ -159,7 +165,7 @@ export async function processVercelOutput(
 	);
 
 	return {
-		cid,
+		cids,
 		vercelConfig: processedConfig,
 		vercelOutput: processedOutput,
 	};

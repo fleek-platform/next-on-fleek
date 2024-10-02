@@ -185,6 +185,7 @@ type BuildOutputStaticItem = BuildOutputStaticAsset | BuildOutputStaticOverride;
 type BuildOutputFunction = {
 	type: 'function' | 'middleware';
 	entrypoint: string;
+	handler: EdgeFunction;
 };
 
 type BuildOutputItem = BuildOutputFunction | BuildOutputStaticItem;

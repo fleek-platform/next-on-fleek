@@ -90,7 +90,7 @@ export async function runOrFetchBuildOutputItem(
 		switch (item?.type) {
 			case 'function':
 			case 'middleware': {
-				const edgeFunction: EdgeFunction = await import(item.entrypoint);
+				const edgeFunction: EdgeFunction = item.handler;
 				try {
 					resp = await edgeFunction.default(req, ctx);
 				} catch (e) {

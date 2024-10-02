@@ -31,17 +31,23 @@ export function constructBuildOutputRecord(
 			}`;
 	}
 
+	const entrypoint = normalizePath(item.entrypoint.replace(outputDir, '')).replace(
+		/^\/_worker\.js\/__next-on-pages-dist__\//,
+		'./__next-on-pages-dist__/',
+	);
+
 	return `{
 				type: ${JSON.stringify(item.type)},
 				entrypoint: '${normalizePath(item.entrypoint.replace(outputDir, '')).replace(
 					/^\/_worker\.js\/__next-on-pages-dist__\//,
 					'./__next-on-pages-dist__/',
-				)}'
+				)}',
+				handler: await import('./${entrypoint}'),
 			}`;
 }
 
 export async function buildWorkerFile(
-	{ vercelConfig, vercelOutput, cid }: ProcessedVercelOutput,
+	{ vercelConfig, vercelOutput, cids }: ProcessedVercelOutput,
 	{
 		outputDir,
 		workerJsDir,
@@ -61,7 +67,7 @@ export async function buildWorkerFile(
 
 	await writeFile(
 		functionsFile,
-		`export const __BUILD_OUTPUT__ = {${[...vercelOutput.entries()]
+		`export const __BUILD_OUTPUT__ = { ${[...vercelOutput.entries()]
 			.map(
 				([name, item]) =>
 					`"${name}": ${constructBuildOutputRecord(item, outputDir)}`,
@@ -73,15 +79,19 @@ export async function buildWorkerFile(
 		target: 'es2022',
 		platform: 'neutral',
 		bundle: false,
-		minify,
+		minify: false,
+		loader: { '.ttf': 'file' },
 	} as const;
 
 	const outputFile = join(workerJsDir, 'index.js');
 
+	// print current dir
+	console.log('current dir', process.cwd());
+
 	await build({
 		...defaultBuildOpts,
 		entryPoints: [join(templatesDir, '_worker.js')],
-		banner: { js: generateGlobalJs(cid) },
+		banner: { js: generateGlobalJs(cids) },
 		bundle: true,
 		inject: [functionsFile],
 		external: ['node:*', './__next-on-pages-dist__/*', 'cloudflare:*'],
@@ -91,6 +101,7 @@ export async function buildWorkerFile(
 			__BUILD_METADATA__: JSON.stringify({
 				collectedLocales: collectLocales(vercelConfig.routes),
 			}),
+			NEXT_PRIVATE_TEST_PROXY: 'false',
 		},
 		outfile: outputFile,
 	});

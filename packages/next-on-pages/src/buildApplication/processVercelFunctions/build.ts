@@ -37,8 +37,9 @@ export async function buildFile(
 		outfile: filePath,
 		bundle: true,
 		external: ['node:*', `${relativeNopDistPath}/*`, '*.wasm', 'cloudflare:*'],
-		minify: true,
+		minify: false,
 		plugins: [builtInModulesPlugin],
+		loader: { '.ttf': 'file' },
 		define: {
 			'process.env.__NEXT_BUILD_ID': JSON.stringify(nextBuildID),
 		},

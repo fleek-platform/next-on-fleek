@@ -4,4 +4,3 @@ export * from './http';
 export * from './pcre';
 export * from './routing';
 export * from './images';
-export * from './fetch';

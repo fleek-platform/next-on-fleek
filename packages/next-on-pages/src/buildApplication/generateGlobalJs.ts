@@ -4,62 +4,128 @@
  *
  * @returns the plain javascript string that should be added at the top of the the _worker.js file
  */
-export function generateGlobalJs(cid: string): string {
+export function generateGlobalJs(cids: {
+	rootCid: string;
+	cidMap: Record<string, string>;
+}): string {
 	return `
-		globalThis.cid = "${cid}";
+		globalThis.cid = "${cids.rootCid}";
 
-		globalThis.ASSETS = {
-			fetch: async (req) => {
+		const sharedGlobalProperties = new Set([
+			'_nextOriginalFetch',
+			'fetch',
+			'__incrementalCache',
+		]);
+
+		function getProxyFor(route) {
+			const existingProxy = globalThis.__nextOnPagesRoutesIsolation._map.get(route);
+			if (existingProxy) {
+				return existingProxy;
+			}
+
+			const newProxy = createNewRouteProxy();
+			globalThis.__nextOnPagesRoutesIsolation._map.set(route, newProxy);
+			return newProxy;
+		}
+
+		function createNewRouteProxy() {
+			const overrides = new Map();
+
+			return new Proxy(globalThis, {
+				get: (_, property) => {
+					if (overrides.has(property)) {
+						return overrides.get(property);
+					}
+					return Reflect.get(globalThis, property);
+				},
+				set: (_, property, value) => {
+					if (sharedGlobalProperties.has(property)) {
+						// this property should be shared across all routes
+						return Reflect.set(globalThis, property, value);
+					}
+					overrides.set(property, value);
+					return true;
+				},
+			});
+		}
+
+		globalThis.__nextOnPagesRoutesIsolation ??= {
+			_map: new Map(),
+			getProxyFor,
+		};
+
+		const originalFetch = globalThis.fetch;
+
+		function setRequestUserAgentIfNeeded(request) {
+			if (!request.headers.has('user-agent')) {
+				request.headers.set(\`user-agent\`, \`Next.js Middleware\`);
+			}
+		}
+
+		const patchFlagSymbol = Symbol.for('next-on-pages fetch patch');
+
+		async function handleInlineAssetRequest(request) {
+			if (request.url.startsWith('blob:')) {
 				try {
-					const { pathname } = new URL(req.url);
-					const noExt = pathname.replace(/\.html$/, '');
+					const url = new URL(request.url);
+					const pathname = url.pathname;
+					const noExt = pathname.replace(/.html$/, '');
 					const withExt = \`\${noExt.replace(/^\\/$/, '/index')}.html\`;
 
-					const response = await fetch(\`https://\${cid}.ipfs.flk-ipfs.xyz\${withExt}\`);
+					const builtUrl = \`https://\${globalThis.cid}.ipfs.flk-ipfs.xyz/_worker.js/__next-on-pages-dist__/assets/\${pathname}\`;
+					console.log('builtUrl', builtUrl);
+					
+					const response = await fetch(
+						builtUrl,
+					);
 					return Promise.resolve(response);
 				} catch (error) {
-				 	console.log('Failed to fetch from IPFS');
+					// eslint-disable-next-line no-console
+					console.log('Failed to fetch from IPFS');
+					// eslint-disable-next-line no-console
 					console.error(error);
-					return Promise.reject(error);
 				}
 			}
+			return null;
+		}
+
+		globalThis.fetch = async (...args) => {
+			const request = new Request(...args);
+
+			let response = await handleInlineAssetRequest(request);
+			if (response) return response;
+
+			// response = await handleSuspenseCacheRequest(request);
+			// if (response) return response;
+
+			setRequestUserAgentIfNeeded(request);
+
+			return originalFetch(request);
+		};
+
+		globalThis.ASSETS = {
+			fetch: async req => {
+				try {
+					const { pathname } = new URL(req.url);
+
+					let assetPath = pathname;
+					if (!/.[^.]+$/.test(assetPath)) {
+						const noExt = pathname.replace(/.html$/, '');
+						assetPath = \`\${noExt.replace(/^\\/$/, '/index')}.html\`;
+					}
+
+					const response = await fetch(
+						\`https://\${globalThis.cid}.ipfs.flk-ipfs.xyz\${assetPath}\`,
+					);
+					return Promise.resolve(response);
+				} catch (error) {
+					return Promise.reject(error);
+				}
+			},
 		};
 
 		import('node:buffer').then(({ Buffer }) => {
 			globalThis.Buffer = Buffer;
-		})
-		.catch(() => null);
-
-		const __ALSes_PROMISE__ = import('node:async_hooks').then(({ AsyncLocalStorage }) => {
-			globalThis.AsyncLocalStorage = AsyncLocalStorage;
-
-			const envAsyncLocalStorage = new AsyncLocalStorage();
-			const requestContextAsyncLocalStorage = new AsyncLocalStorage();
-
-			globalThis.process = {
-				env: new Proxy(
-					{},
-					{
-						ownKeys: () => Reflect.ownKeys(envAsyncLocalStorage.getStore()),
-						getOwnPropertyDescriptor: (_, ...args) =>
-							Reflect.getOwnPropertyDescriptor(envAsyncLocalStorage.getStore(), ...args),
-						get: (_, property) => Reflect.get(envAsyncLocalStorage.getStore(), property),
-						set: (_, property, value) => Reflect.set(envAsyncLocalStorage.getStore(), property, value),
-				}),
-			};
-
-			globalThis[Symbol.for('__cloudflare-request-context__')] = new Proxy(
-				{},
-				{
-					ownKeys: () => Reflect.ownKeys(requestContextAsyncLocalStorage.getStore()),
-					getOwnPropertyDescriptor: (_, ...args) =>
-						Reflect.getOwnPropertyDescriptor(requestContextAsyncLocalStorage.getStore(), ...args),
-					get: (_, property) => Reflect.get(requestContextAsyncLocalStorage.getStore(), property),
-					set: (_, property, value) => Reflect.set(requestContextAsyncLocalStorage.getStore(), property, value),
-				}
-			);
-
-			return { envAsyncLocalStorage, requestContextAsyncLocalStorage };
 		})
 		.catch(() => null);
 	`;

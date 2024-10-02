@@ -1,4 +1,3 @@
-import { parse } from 'cookie';
 import type { MatchPCREResult, MatchedSetHeaders } from './utils';
 import { isLocaleTrailingSlashRegex, parseAcceptLanguage } from './utils';
 import {
@@ -15,6 +14,66 @@ import type { RequestContext } from '../../src/utils/requestContext';
 
 export type CheckRouteStatus = 'skip' | 'next' | 'done' | 'error';
 export type CheckPhaseStatus = Extract<CheckRouteStatus, 'error' | 'done'>;
+
+function decode(str: string) {
+	return str.indexOf('%') !== -1 ? decodeURIComponent(str) : str;
+}
+
+function tryDecode(str: string, decode: (str: string) => string) {
+	try {
+		return decode(str);
+	} catch (e) {
+		return str;
+	}
+}
+
+function parse(str: string, options: { decode?: (str: string) => string }) {
+	if (typeof str !== 'string') {
+		throw new TypeError('argument str must be a string');
+	}
+
+	const obj: Record<string, string> = {};
+	const opt = options || {};
+	const dec = opt.decode || decode;
+
+	let index = 0;
+	while (index < str.length) {
+		const eqIdx = str.indexOf('=', index);
+
+		// no more cookie pairs
+		if (eqIdx === -1) {
+			break;
+		}
+
+		let endIdx = str.indexOf(';', index);
+
+		if (endIdx === -1) {
+			endIdx = str.length;
+		} else if (endIdx < eqIdx) {
+			// backtrack on prior semicolon
+			index = str.lastIndexOf(';', eqIdx - 1) + 1;
+			continue;
+		}
+
+		const key = str.slice(index, eqIdx).trim();
+
+		// only assign once
+		if (undefined === obj[key]) {
+			let val = str.slice(eqIdx + 1, endIdx).trim();
+
+			// quoted values
+			if (val.charCodeAt(0) === 0x22) {
+				val = val.slice(1, -1);
+			}
+
+			obj[key] = tryDecode(val, dec);
+		}
+
+		index = endIdx + 1;
+	}
+
+	return obj;
+}
 
 /**
  * The routes matcher is used to match a request to a route and run the route's middleware.

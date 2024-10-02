@@ -49,56 +49,45 @@ async function handleInlineAssetRequest(request: Request) {
 	if (request.url.startsWith('blob:')) {
 		try {
 			const url = new URL(request.url);
-			const binaryContent = (
-				await import(`./__next-on-pages-dist__/assets/${url.pathname}`)
-			).default;
+			const pathname = url.pathname;
+			// const noExt = url.pathname.replace(/.html$/, '');
+			// const withExt = `${noExt.replace(/^\/$/, '/index')}.html`;
 
-			// Note: we can't generate a real Response object here because this fetch might be called
-			//       at the top level of a dynamically imported module, and such cases produce the following
-			//       error:
-			//           Some functionality, such as asynchronous I/O, timeouts, and generating random values,
-			//           can only be performed while handling a request
-			//       this is a somewhat known workerd behavior (currently kept for security and performance reasons)
-			//
-			//       if the above issue/constraint were to change we should replace the following with a real Response object
-			const resp = {
-				async arrayBuffer() {
-					return binaryContent;
-				},
-				get body(): ReadableStream<unknown> | null {
-					return new ReadableStream({
-						start(controller) {
-							const b = Buffer.from(binaryContent);
-							controller.enqueue(b);
-							controller.close();
-						},
-					});
-				},
-				async text() {
-					const b = Buffer.from(binaryContent);
-					return b.toString();
-				},
-				async json() {
-					const b = Buffer.from(binaryContent);
-					return JSON.stringify(b.toString());
-				},
-				async blob() {
-					return new Blob(binaryContent);
-				},
-			} as Response;
+			const builtUrl = `https://${globalThis.cid}.ipfs.flk-ipfs.xyz/_worker.js/__next-on-pages-dist__/assets/${pathname}`;
 
-			// Note: clone is necessary so that body does work
-			resp.clone = (): Response => {
-				return { ...resp } as Response;
-			};
-
-			return resp;
-		} catch {
-			/* empty */
+			const response = await fetch(builtUrl);
+			return Promise.resolve(response);
+		} catch (error) {
+			// eslint-disable-next-line no-console
+			console.log('Failed to fetch from IPFS');
+			// eslint-disable-next-line no-console
+			console.error(error);
 		}
 	}
 	return null;
 }
+
+
+globalThis.ASSETS = {
+	fetch: async req => {
+		try {
+			const { pathname } = new URL(req.url);
+
+			let assetPath = pathname;
+			if (/\.[^.]+$/.test(assetPath)) {
+				const noExt = pathname.replace(/\.html$/, '');
+				assetPath = `${noExt.replace(/^\/$/, '/index')}.html`;
+			}
+
+			const response = await fetch(
+				`https://${cid}.ipfs.flk-ipfs.xyz${assetPath}`,
+			);
+			return Promise.resolve(response);
+		} catch (error) {
+			return Promise.reject(error);
+		}
+	},
+};
 
 /**
  *	updates the provided request by adding a Next.js specific user-agent header if the request has no user-agent header
