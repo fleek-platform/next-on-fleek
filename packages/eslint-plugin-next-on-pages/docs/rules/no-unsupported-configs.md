@@ -1,10 +1,10 @@
-# `next-on-pages/no-unsupported-configs`
+# `next-on-fleek/no-unsupported-configs`
 
-`@cloudflare/next-on-pages` doesn't support all config options that are supported by Next in their `next.config.mjs` file.
+`@fleek-platform/next-on-fleek` doesn't support all config options that are supported by Next in their `next.config.mjs` file.
 
-As documented in the [support documentation](https://github.com/cloudflare/next-on-pages/blob/main/docs/supported.md#nextconfigjs-properties) there are config options that: we support, we don't currently support, we support and don't plan to.
+As documented in the [support documentation](https://github.com/fleek-platform/next-on-fleek/blob/main/docs/supported.md#nextconfigjs-properties) there are config options that: we support, we don't currently support, we support and don't plan to.
 
-This rule helps you making sure that your code is not using config options that aren't supported by `@cloudflare/next-on-pages` (it always reports config options that we don't plan on supporting, other options can be set/unset using the rule's options).
+This rule helps you making sure that your code is not using config options that aren't supported by `@fleek-platform/next-on-fleek` (it always reports config options that we don't plan on supporting, other options can be set/unset using the rule's options).
 
 ## Rule Options:
 
@@ -17,7 +17,7 @@ This rule helps you making sure that your code is not using config options that 
 
 ```js
 // eslintrc
-"next-on-pages/no-unsupported-configs": "error"
+"next-on-fleek/no-unsupported-configs": "error"
 
 
 // next.config.mjs
@@ -32,7 +32,7 @@ export default nextConfig
 
 ```js
 // eslintrc
-"next-on-pages/no-unsupported-configs": "error"
+"next-on-fleek/no-unsupported-configs": "error"
 
 
 // next.config.mjs
@@ -47,7 +47,7 @@ export default nextConfig
 
 ```js
 // eslintrc
-"next-on-pages/no-unsupported-configs": [
+"next-on-fleek/no-unsupported-configs": [
   "error", { "includeUnrecognized": true }
 ]
 
@@ -66,7 +66,7 @@ export default nextConfig
 
 ```js
 // eslintrc
-"next-on-pages/no-unsupported-configs": "error"
+"next-on-fleek/no-unsupported-configs": "error"
 
 
 // next.config.mjs
@@ -80,7 +80,7 @@ export default nextConfig
 
 ```js
 // eslintrc
-"next-on-pages/no-unsupported-configs": [
+"next-on-fleek/no-unsupported-configs": [
   "error", { includeCurrentlyUnsupported: false }
 ]
 
@@ -96,7 +96,7 @@ export default nextConfig
 
 ```js
 // eslintrc
-"next-on-pages/no-unsupported-configs": "error"
+"next-on-fleek/no-unsupported-configs": "error"
 
 
 // next.config.mjs

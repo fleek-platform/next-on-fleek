@@ -7,9 +7,9 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"pages:build": "npx @cloudflare/next-on-pages -m",
+		"pages:build": "npx @fleek-platform/next-on-fleek -m",
 		"pages:deploy": "npm run pages:build && wrangler pages deploy .vercel/output/static",
-		"pages:watch": "npx @cloudflare/next-on-pages --watch",
+		"pages:watch": "npx @fleek-platform/next-on-fleek --watch",
 		"pages:dev": "npx wrangler pages dev .vercel/output/static --compatibility-date=2023-11-21 --compatibility-flag=nodejs_compat"
 	},
 	"dependencies": {

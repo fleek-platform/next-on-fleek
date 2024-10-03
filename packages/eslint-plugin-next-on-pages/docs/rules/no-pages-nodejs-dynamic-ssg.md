@@ -1,4 +1,4 @@
-# `next-on-pages/no-pages-nodejs-dynamic-ssg`
+# `next-on-fleek/no-pages-nodejs-dynamic-ssg`
 
 When using [`getStaticPaths`](https://nextjs.org/docs/pages/api-reference/functions/get-static-paths) you need to either:
 

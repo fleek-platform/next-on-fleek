@@ -1,7 +1,7 @@
 import { handleSuspenseCacheRequest } from './cache';
 
 /**
- * Patches the global fetch in ways necessary for Next.js (/next-on-pages) applications
+ * Patches the global fetch in ways necessary for Next.js (/next-on-fleek) applications
  * to work
  */
 export function patchFetch(): void {
@@ -71,6 +71,7 @@ async function handleInlineAssetRequest(request: Request) {
 globalThis.ASSETS = {
 	fetch: async req => {
 		try {
+			console.log('fetching asset', req.url);
 			const { pathname } = new URL(req.url);
 
 			let assetPath = pathname;
@@ -80,7 +81,7 @@ globalThis.ASSETS = {
 			}
 
 			const response = await fetch(
-				`https://${cid}.ipfs.flk-ipfs.xyz${assetPath}`,
+				`https://${globalThis.cid}.ipfs.flk-ipfs.xyz${assetPath}`,
 			);
 			return Promise.resolve(response);
 		} catch (error) {

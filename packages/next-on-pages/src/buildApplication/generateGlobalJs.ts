@@ -109,7 +109,7 @@ export function generateGlobalJs(cids: {
 					const { pathname } = new URL(req.url);
 
 					let assetPath = pathname;
-					if (!/.[^.]+$/.test(assetPath)) {
+					if (!/\\.[^.]+$/.test(assetPath)) {
 						const noExt = pathname.replace(/.html$/, '');
 						assetPath = \`\${noExt.replace(/^\\/$/, '/index')}.html\`;
 					}

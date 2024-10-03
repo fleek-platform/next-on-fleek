@@ -2,7 +2,7 @@ export const config = {
 	runtime: 'experimental-edge',
 };
 
-import { getRequestContext } from '@cloudflare/next-on-pages';
+import { getRequestContext } from '@fleek-platform/next-on-fleek';
 
 export default async function handler() {
 	const {

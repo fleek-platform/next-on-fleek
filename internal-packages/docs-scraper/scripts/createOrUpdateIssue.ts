@@ -74,7 +74,7 @@ function generateIssueBody(
 	documentedNonNextConfigs: string[],
 ): string {
 	let issueBody =
-		'### The next-on-pages documentation of the next.config.mjs options is out of date\n';
+		'### The next-on-fleek documentation of the next.config.mjs options is out of date\n';
 
 	if (undocumentedNextConfigs.length > 0) {
 		issueBody += `\n\n${generateMdList(
@@ -123,9 +123,9 @@ function generateRememberToUpdateSection(): string {
 	rememberToUpdateSection += '\n> [!WARNING]\n';
 	rememberToUpdateSection += '> Remember to update:\n';
 	rememberToUpdateSection +=
-		'> - [The supported documentation](https://github.com/cloudflare/next-on-pages/blob/main/packages/next-on-pages/docs/supported.md#nextconfigjs-properties)\n';
+		'> - [The supported documentation](https://github.com/fleek-platform/next-on-fleek/blob/main/packages/next-on-fleek/docs/supported.md#nextconfigjs-properties)\n';
 	rememberToUpdateSection +=
-		'> - [The eslint-plugin-next-on-pages no-unsupported rule](https://github.com/cloudflare/next-on-pages/blob/main/packages/eslint-plugin-next-on-pages/src/rules/no-unsupported-configs.ts)\n';
+		'> - [The eslint-plugin-next-on-fleek no-unsupported rule](https://github.com/fleek-platform/next-on-fleek/blob/main/packages/eslint-plugin-next-on-fleek/src/rules/no-unsupported-configs.ts)\n';
 
 	return rememberToUpdateSection;
 }

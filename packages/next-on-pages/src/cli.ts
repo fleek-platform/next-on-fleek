@@ -13,16 +13,16 @@ import {
 import { program, Option } from 'commander';
 
 program
-	.description(`@cloudflare/next-on-pages CLI v.${nextOnPagesVersion}`)
+	.description(`@fleek-platform/next-on-fleek CLI v.${nextOnPagesVersion}`)
 	.allowExcessArguments(false)
 	.configureHelp({
-		commandUsage: () => '@cloudflare/next-on-pages [options]',
+		commandUsage: () => '@fleek-platform/next-on-fleek [options]',
 	})
 	.helpOption(undefined, 'Shows this help message')
 	.addHelpText(
 		'after',
 		'\n' +
-			'GitHub: https://github.com/cloudflare/next-on-pages\n' +
+			'GitHub: https://github.com/fleek-platform/next-on-fleek\n' +
 			'Docs: https://developers.cloudflare.com/pages/framework-guides/deploy-a-nextjs-site',
 	)
 	.addOption(
@@ -41,7 +41,7 @@ program
 	)
 	.option(
 		'-s, --skip-build',
-		'Skips the application Vercel build process (only runs the @cloudflare/next-on-pages build logic)',
+		'Skips the application Vercel build process (only runs the @fleek-platform/next-on-fleek build logic)',
 	)
 	.option(
 		'-m, --disable-worker-minification',
@@ -124,7 +124,7 @@ export function cliError(
 	);
 	if (showReport) {
 		cliError(
-			'Please report this at https://github.com/cloudflare/next-on-pages/issues.',
+			'Please report this at https://github.com/fleek-platform/next-on-fleek/issues.',
 			{ fromVercelCli },
 		);
 	}
@@ -188,7 +188,7 @@ export async function printEnvInfo(): Promise<void> {
 			pmInfo +
 			`
 		Relevant Packages:
-			@cloudflare/next-on-pages: ${nextOnPagesVersion}
+			@fleek-platform/next-on-fleek: ${nextOnPagesVersion}
 			vercel: ${vercelVersion ?? 'N/A'}
 			next: ${nextVersion ?? 'N/A'}
 	`,

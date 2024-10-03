@@ -3,10 +3,10 @@ const { exec } = require('child_process');
 
 try {
 	const nextOnPagesPackage = JSON.parse(
-		fs.readFileSync('./packages/next-on-pages/package.json'),
+		fs.readFileSync('./packages/next-on-fleek/package.json'),
 	);
 	const eslintPluginPackage = JSON.parse(
-		fs.readFileSync('./packages/eslint-plugin-next-on-pages/package.json'),
+		fs.readFileSync('./packages/eslint-plugin-next-on-fleek/package.json'),
 	);
 
 	exec('git rev-parse --short HEAD', (err, stdout) => {
@@ -25,11 +25,11 @@ try {
 		nextOnPagesPackage.nextOnPagesMetadata = nextOnPagesMetadata;
 
 		fs.writeFileSync(
-			'./packages/next-on-pages/package.json',
+			'./packages/next-on-fleek/package.json',
 			JSON.stringify(nextOnPagesPackage, null, '\t') + '\n',
 		);
 		fs.writeFileSync(
-			'./packages/eslint-plugin-next-on-pages/package.json',
+			'./packages/eslint-plugin-next-on-fleek/package.json',
 			JSON.stringify(eslintPluginPackage, null, '\t') + '\n',
 		);
 	});

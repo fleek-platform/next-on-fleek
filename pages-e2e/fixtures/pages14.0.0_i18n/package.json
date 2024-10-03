@@ -20,6 +20,6 @@
 		"typescript": "5.0.2"
 	},
 	"devDependencies": {
-		"@cloudflare/next-on-pages": "*"
+		"@fleek-platform/next-on-fleek": "*"
 	}
 }

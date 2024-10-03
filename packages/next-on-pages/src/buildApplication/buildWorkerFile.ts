@@ -128,7 +128,7 @@ export async function buildWorkerFile(
 					name: 'custom-entrypoint-import-plugin',
 					setup(build) {
 						build.onResolve(
-							{ filter: /^@cloudflare\/next-on-pages\/fetch-handler$/ },
+							{ filter: /^@fleek-platform\/next-on-fleek\/fetch-handler$/ },
 							() => ({ path: outputFile }),
 						);
 					},

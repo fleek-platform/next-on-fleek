@@ -1,6 +1,6 @@
 # Routing
 
-To serve incoming requests for a Next.js application deployed on Cloudflare Pages, a worker needs to be able to accurately point the request to the correct route. Routes in a Next.js app can be built as either be functions that need to be ran on the server, or static files that can just be served. In both cases, there are a series of steps that have to be taken to determine the correct destination.
+To serve incoming requests for a Next.js application deployed on Fleek Functions, a function needs to be able to accurately point the request to the correct route. Routes in a Next.js app can be built as either be functions that need to be ran on the server, or static files that can just be served. In both cases, there are a series of steps that have to be taken to determine the correct destination.
 
 When building an application, the Vercel CLI takes a project and generates a configuration file that defines how the application should be served. This configuration file is useful in determining what happens at each stage of the routing process.
 

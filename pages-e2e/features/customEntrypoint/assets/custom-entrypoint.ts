@@ -1,5 +1,5 @@
 //@ts-nocheck
-import nextOnPagesHandler from '@cloudflare/next-on-pages/fetch-handler';
+import nextOnPagesHandler from '@fleek-platform/next-on-fleek/fetch-handler';
 
 export default {
 	async fetch(...args) {

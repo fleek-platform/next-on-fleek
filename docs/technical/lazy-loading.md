@@ -1,6 +1,6 @@
 ## Lazy Loading
 
-`@cloudflare/next-on-pages` implements a lazy loading strategy which allows only the necessary JavaScript code to be evaluated and run when handling a request.
+`@fleek-platform/next-on-fleek` implements a lazy loading strategy which allows only the necessary JavaScript code to be evaluated and run when handling a request.
 
 The CLI builds a Next.js application by running the `vercel build` command and then it sorts the output into essentially two categories of JavaScript files:
 

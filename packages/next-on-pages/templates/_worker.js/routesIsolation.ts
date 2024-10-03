@@ -1,6 +1,6 @@
 /**
  * The next-on-pages worker needs to isolate the global scope for each route, they all sharing the same global scope
- * allows for race conditions and incorrect behaviors (see: https://github.com/cloudflare/next-on-pages/issues/805)
+ * allows for race conditions and incorrect behaviors (see: https://github.com/fleek-platform/next-on-fleek/issues/805)
  *
  * So we set up an isolation system in which each route can access a proxy to the global scope that is route-specific,
  * they can do that by calling `globalThis.getProxyFor(route)`.

@@ -7,9 +7,9 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"pages:build": "npx @cloudflare/next-on-pages -m",
+		"pages:build": "npx @fleek-platform/next-on-fleek -m",
 		"pages:deploy": "npm run pages:build && wrangler pages deploy .vercel/output/static",
-		"pages:watch": "npx @cloudflare/next-on-pages --watch",
+		"pages:watch": "npx @fleek-platform/next-on-fleek --watch",
 		"pages:dev": "npx wrangler pages dev .vercel/output/static --compatibility-date=2023-11-21 --compatibility-flag=nodejs_compat",
 		"p": "npm run pages:build && npm run pages:dev"
 	},
@@ -19,7 +19,7 @@
 		"react-dom": "^18"
 	},
 	"devDependencies": {
-		"@cloudflare/next-on-pages": "/Users/dario/Repos/my-repos/next-on-pages/packages/next-on-pages",
+		"@fleek-platform/next-on-fleek": "../../../packages/next-on-fleek",
 		"wrangler": "^3.19.0",
 		"@types/node": "^20",
 		"@types/react": "^18",

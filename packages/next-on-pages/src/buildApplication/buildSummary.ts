@@ -62,7 +62,7 @@ export function printBuildSummary(
 			.filter(Boolean) as string[],
 	);
 
-	const summaryTitle = `Build Summary (@cloudflare/next-on-pages v${nextOnPagesVersion})`;
+	const summaryTitle = `Build Summary (@fleek-platform/next-on-fleek v${nextOnPagesVersion})`;
 	const summarySections = constructSummarySections([
 		{ name: 'Middleware Functions', rawItems: middlewareFunctions },
 		{ name: 'Edge Function Routes', rawItems: [...routeFunctions] },
@@ -114,7 +114,7 @@ export async function writeBuildInfo(
 		timestamp: Date.now(),
 		outputDir: relative(currentDir, outputDir),
 		versions: {
-			'@cloudflare/next-on-pages': nextOnPagesVersion,
+			'@fleek-platform/next-on-fleek': nextOnPagesVersion,
 		},
 		buildFiles: {
 			functions: {
@@ -196,7 +196,7 @@ export type BuildLog = {
 	timestamp: number;
 	outputDir: string;
 	versions: {
-		'@cloudflare/next-on-pages': string;
+		'@fleek-platform/next-on-fleek': string;
 	};
 	buildFiles: {
 		functions: {

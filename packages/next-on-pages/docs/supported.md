@@ -2,11 +2,11 @@
 
 ## Operating Systems
 
-`@cloudflare/next-on-pages` can be run on Linux, Mac OS and Windows but its usage under the latter is discouraged as we've noticed that one of the CLI's dependencies, the [Vercel CLI](https://vercel.com/docs/cli) (used to build the Next.js application) seems not to work reliably on Windows. If you need to run `@cloudflare/next-on-pages` on Windows we advise you to run it under the [Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/).
+`@fleek-platform/next-on-fleek` can be run on Linux, Mac OS and Windows but its usage under the latter is discouraged as we've noticed that one of the CLI's dependencies, the [Vercel CLI](https://vercel.com/docs/cli) (used to build the Next.js application) seems not to work reliably on Windows. If you need to run `@fleek-platform/next-on-fleek` on Windows we advise you to run it under the [Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/).
 
 ## Supported Next.js versions
 
-`@cloudflare/next-on-pages` supports all minor and patch version of Next.js 13 and 14. We regularly run manual and automated tests to ensure such compatibility.
+`@fleek-platform/next-on-fleek` supports all minor and patch version of Next.js 13 and 14. We regularly run manual and automated tests to ensure such compatibility.
 
 Next.js canary versions not actively being tested and we don't currently extend support to these versions.
 
@@ -14,9 +14,9 @@ Next.js canary versions not actively being tested and we don't currently extend 
 
 Next.js offers two different [runtimes](https://nextjs.org/docs/app/building-your-application/rendering/edge-and-nodejs-runtimes#nodejs-runtime) for your application's routes: `Node.js` and `Edge`.
 
-Routes using the `Node.js` runtime get built as Node.js serverless functions, such are fundamentally incompatible with the Cloudflare network and so only routes using the `Edge` runtime are supported when using `@cloudflare/next-on-pages`.
+Routes using the `Node.js` runtime get built as Node.js serverless functions, such are fundamentally incompatible with the Cloudflare network and so only routes using the `Edge` runtime are supported when using `@fleek-platform/next-on-fleek`.
 
-The [Cloudflare workers runtime supports certain Node.js APIs](https://developers.cloudflare.com/workers/platform/nodejs-compatibility/), but currently Next.js in its `Edge` runtime only supports a [subset](https://github.com/vercel/next.js/blob/06f505c78bcc25ad4756f0e1665d239c0f45a3e2/packages/next/src/build/webpack/plugins/middleware-plugin.ts#L788-L794) of them, resulting in only the following Node.js built-in modules being currently supported in `@cloudflare/next-on-pages`:
+The [Cloudflare workers runtime supports certain Node.js APIs](https://developers.cloudflare.com/workers/platform/nodejs-compatibility/), but currently Next.js in its `Edge` runtime only supports a [subset](https://github.com/vercel/next.js/blob/06f505c78bcc25ad4756f0e1665d239c0f45a3e2/packages/next/src/build/webpack/plugins/middleware-plugin.ts#L788-L794) of them, resulting in only the following Node.js built-in modules being currently supported in `@fleek-platform/next-on-fleek`:
 
 - `buffer`
 - `events`
@@ -30,7 +30,7 @@ You are free to use any external npm package with your Next.js application as lo
 
 - unsupported Node.js APIs (see above)
 - [JavaScript APIs](https://developers.cloudflare.com/workers/runtime-apis/web-standards/#javascript-standards) disabled by Cloudflare due to security concerns
-- features not supported by `@cloudflare/next-on-pages` (see below)
+- features not supported by `@fleek-platform/next-on-fleek` (see below)
 
 ## Supported Features
 
@@ -127,21 +127,21 @@ To check the latest state of the routers and possible missing features you can c
 
 - _2_ - **dev indicators**: If you're developing using `wrangler pages dev`, it hard refreshes your application the dev indicator doesn't appear. If you run your app locally using `next dev`, this option works fine.
 
-- _3_ - **setting custom build directory**: Applications built using `@cloudflare/next-on-pages` don't rely on the `.next` directory so this option isn't really applicable (the `@cloudflare/next-on-pages` equivalent is to use the `--outdir` flag).
+- _3_ - **setting custom build directory**: Applications built using `@fleek-platform/next-on-fleek` don't rely on the `.next` directory so this option isn't really applicable (the `@fleek-platform/next-on-fleek` equivalent is to use the `--outdir` flag).
 
-- _4_ - **exportPathMap**: Option used for SSG not applicable for apps built using `@cloudflare/next-on-pages`.
+- _4_ - **exportPathMap**: Option used for SSG not applicable for apps built using `@fleek-platform/next-on-fleek`.
 
 - _5_ - **logging**: If you're developing using `wrangler pages dev`, the extra logging is not applied (since you are effectively running a production build). If you run your app locally using `next dev`, this option works fine.
 
 - _6_ - **onDemandEntries**: Not applicable since it's an option for the Next.js server during development which we don't rely on.
 
-- _7_ - **optimizePackageImports**: `@cloudflare/next-on-pages` performs chunks deduplication and provides an implementation based on modules lazy loading, based on this applying an `optimizePackageImports` doesn't have an impact on the output produced by the CLI. This configuration can still however be used to speed up the build process (both when running `next dev` or when generating a production build).
+- _7_ - **optimizePackageImports**: `@fleek-platform/next-on-fleek` performs chunks deduplication and provides an implementation based on modules lazy loading, based on this applying an `optimizePackageImports` doesn't have an impact on the output produced by the CLI. This configuration can still however be used to speed up the build process (both when running `next dev` or when generating a production build).
 
-- _8_ - **output**: `@cloudflare/next-on-pages` works with the standard Next.js output, `standalone` is incompatible with it, `export` is used to generate a static site which doesn't need `@cloudflare/next-on-pages` to run.
+- _8_ - **output**: `@fleek-platform/next-on-fleek` works with the standard Next.js output, `standalone` is incompatible with it, `export` is used to generate a static site which doesn't need `@fleek-platform/next-on-fleek` to run.
 
-- _9_ - **Partial Prerendering (experimental)**: As presented in the official [Next.js documentation](https://nextjs.org/docs/app/api-reference/next-config-js/partial-prerendering): `Partial Prerendering is designed for the Node.js runtime only.`, as such it is fundamentally incompatibly with `@cloudflare/next-on-pages` (which only works on the edge runtime).
+- _9_ - **Partial Prerendering (experimental)**: As presented in the official [Next.js documentation](https://nextjs.org/docs/app/api-reference/next-config-js/partial-prerendering): `Partial Prerendering is designed for the Node.js runtime only.`, as such it is fundamentally incompatibly with `@fleek-platform/next-on-fleek` (which only works on the edge runtime).
 
-- _10_ - **productionBrowserSourceMaps**: The webpack chunks deduplication performed by `@cloudflare/next-on-pages` doesn't currently preserve source maps in any case so this option can't be implemented either. In the future we might try to preserver source maps, in such case it should be simple to also support this option.
+- _10_ - **productionBrowserSourceMaps**: The webpack chunks deduplication performed by `@fleek-platform/next-on-fleek` doesn't currently preserve source maps in any case so this option can't be implemented either. In the future we might try to preserver source maps, in such case it should be simple to also support this option.
 
 - _11_ - **reactStrictMode**: Currently we build the application so react strict mode (being a local dev feature) doesn't work either way. If we can make strict mode work, this option will most likely work straight away.
 
@@ -151,7 +151,7 @@ To check the latest state of the routers and possible missing features you can c
 
 ### Internationalization
 
-Besides the above mentioned `next.config.js` properties, there is also the `i18n` one, that is also fully supported meaning that `@cloudflare/next-on-pages` does support Next.js' built-in internationalization system. For more details on the option see the [Next.js Internationalization documentation](https://nextjs.org/docs/pages/building-your-application/routing/internationalization).
+Besides the above mentioned `next.config.js` properties, there is also the `i18n` one, that is also fully supported meaning that `@fleek-platform/next-on-fleek` does support Next.js' built-in internationalization system. For more details on the option see the [Next.js Internationalization documentation](https://nextjs.org/docs/pages/building-your-application/routing/internationalization).
 
 ### Rendering and Data Fetching
 
@@ -161,11 +161,11 @@ Incremental Static Regeneration (ISR) is a rendering mode in Next.js that allows
 
 ISR pages are built by the Vercel CLI to generate Vercel [Prerender Functions](https://vercel.com/docs/build-output-api/v3/primitives#prerender-functions). These are Node.js serverless functions that can be called in the background while serving the page from the cache. It is not possible to use these with Cloudflare Pages and they are not compatible with the [edge runtime](https://nextjs.org/docs/app/api-reference/edge) currently.
 
-In case the Vercel build process generates prerendered pages for your application, `@cloudflare/next-on-pages` will use static fallback files that are generated by the build process so that your application will still correctly serve your ISR/prerendered pages (but without the regeneration aspect).
+In case the Vercel build process generates prerendered pages for your application, `@fleek-platform/next-on-fleek` will use static fallback files that are generated by the build process so that your application will still correctly serve your ISR/prerendered pages (but without the regeneration aspect).
 
 #### Dynamic handling of static routes
 
-`@cloudflare/next-on-pages` supports standard statically generated routes, it does however not support dynamic Node.js-based on-demand handling of such routes.
+`@fleek-platform/next-on-fleek` supports standard statically generated routes, it does however not support dynamic Node.js-based on-demand handling of such routes.
 
 For more details see:
 

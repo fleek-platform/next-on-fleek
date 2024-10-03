@@ -106,7 +106,7 @@ async function tryToFixAppRouterNotFoundFunction({
 		if (invalidNotFound && invalidError) {
 			cliWarn(`
 				Warning: your app/not-found route might contain runtime logic, this is currently
-				not supported by @cloudflare/next-on-pages, if that's actually the case please
+				not supported by @fleek-platform/next-on-fleek, if that's actually the case please
 				remove the runtime logic from your not-found route
 			`);
 		}
@@ -261,7 +261,7 @@ async function printInvalidFunctionsErrorMessage(
 
 	cliError(
 		`
-		ERROR: Failed to produce a Cloudflare Pages build from the project.
+		ERROR: Failed to produce a build from the project.
 
 			The following routes were not configured to run with the Edge Runtime:\n${invalidRoutes
 				.map(route => `			  - ${route}`)

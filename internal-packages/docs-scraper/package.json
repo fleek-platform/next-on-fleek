@@ -1,5 +1,5 @@
 {
-	"name": "@cloudflare/next-on-pages-docs-scraper",
+	"name": "@fleek-platform/next-on-fleek-docs-scraper",
 	"private": true,
 	"scripts": {
 		"lint": "eslint scripts",

@@ -82,7 +82,7 @@ describe('buildSummary', () => {
 		expect(mockedConsole).toHaveBeenCalledTimes(1);
 		expect(mockedConsole).lastCalledWith(
 			`
-			⚡️ Build Summary (@cloudflare/next-on-pages v${nextOnPagesVersion})
+			⚡️ Build Summary (@fleek-platform/next-on-fleek v${nextOnPagesVersion})
 			⚡️ 
 			⚡️ Middleware Functions (1)
 			⚡️   - middleware
@@ -186,7 +186,7 @@ describe('buildSummary', () => {
 
 		expect(logFile?.outputDir).toEqual('dist');
 		expect(logFile?.versions).toEqual({
-			'@cloudflare/next-on-pages': nextOnPagesVersion,
+			'@fleek-platform/next-on-fleek': nextOnPagesVersion,
 		});
 		expect(logFile?.buildFiles).toEqual({
 			functions: {

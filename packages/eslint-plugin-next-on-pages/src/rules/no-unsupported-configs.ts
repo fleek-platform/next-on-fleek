@@ -8,7 +8,7 @@ import { parse as parseComment } from 'comment-parser';
 
 type Config = { name: string; support: '✅' | 'N/A' | '❌' | '🔄' };
 
-// configs taken from https://github.com/cloudflare/next-on-pages/blob/main/packages/next-on-pages/docs/supported.md#nextconfigjs-properties
+// configs taken from https://github.com/fleek-platform/next-on-fleek/blob/main/packages/next-on-fleek/docs/supported.md#nextconfigjs-properties
 // NOTE: to some we need to add the `experimental/` prefix and the Runtime Config is split into two
 const configs: Config[] = [
 	{ name: 'experimental/appDir', support: '✅' },
@@ -143,7 +143,7 @@ const rule: Rule.RuleModule = {
 		schema: [ruleSchema],
 		fixable: 'code',
 		docs: {
-			url: 'https://github.com/cloudflare/next-on-pages/blob/main/packages/eslint-plugin-next-on-pages/docs/rules/no-unsupported-configs.md',
+			url: 'https://github.com/fleek-platform/next-on-fleek/blob/main/packages/eslint-plugin-next-on-fleek/docs/rules/no-unsupported-configs.md',
 		},
 	},
 };
@@ -177,7 +177,7 @@ function checkConfigPropsRecursively(
 
 		if (indefinitelyUnsupportedConfigs.has(fullPropName)) {
 			context.report({
-				message: `The "${fullPropName}" configuration is not supported by next-on-pages (and is unlikely to be supported in the future).`,
+				message: `The "${fullPropName}" configuration is not supported by next-on-fleek (and is unlikely to be supported in the future).`,
 				node: prop.key,
 			});
 			return;
@@ -186,7 +186,7 @@ function checkConfigPropsRecursively(
 		if (currentlyUnsupportedConfigs.has(fullPropName)) {
 			if (options.includeCurrentlyUnsupported) {
 				context.report({
-					message: `The "${fullPropName}" configuration is not currently supported by next-on-pages.`,
+					message: `The "${fullPropName}" configuration is not currently supported by next-on-fleek.`,
 					node: prop.key,
 				});
 			}
@@ -195,7 +195,7 @@ function checkConfigPropsRecursively(
 
 		if (options.includeUnrecognized && !supportedConfigs.has(fullPropName)) {
 			context.report({
-				message: `The "${fullPropName}" configuration is not recognized by next-on-pages (it might or might not be supported).`,
+				message: `The "${fullPropName}" configuration is not recognized by next-on-fleek (it might or might not be supported).`,
 				node: prop.key,
 			});
 			return;

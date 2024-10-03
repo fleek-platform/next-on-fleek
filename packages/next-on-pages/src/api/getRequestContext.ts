@@ -83,7 +83,7 @@ export function getRequestContext<
 					a call to the \`setupDevPlatform\` function in your config file.
 
 					For more details visit:
-					  https://github.com/cloudflare/next-on-pages/tree/3846730c/internal-packages/next-dev
+					  https://github.com/fleek-platform/next-on-fleek/tree/3846730c/internal-packages/next-dev
 				` +
 				'\n\n';
 		}

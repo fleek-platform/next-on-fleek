@@ -5,7 +5,7 @@ const packageJson = rawPackageJson as unknown as {
 	nextOnPagesMetadata?: NextOnPagesMetadata;
 };
 
-/** Current version of the @cloudflare/next-on-pages package (in a helpful human readable form) */
+/** Current version of the @fleek-platform/next-on-fleek package (in a helpful human readable form) */
 export const nextOnPagesVersion = `${
 	packageJson.version
 }${getVersionExtraInfo()}`;

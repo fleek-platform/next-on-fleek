@@ -49,7 +49,7 @@ export async function buildApplication({
 		cliWarn(
 			`The project is set up for ${pm.projectPackageManager} but it is currently being run` +
 				` via ${pm.name} this might lead to build errors, please be sure to use the same package manager` +
-				` your project uses when running @cloudflare/next-on-pages`,
+				` your project uses when running @fleek-platform/next-on-fleek`,
 			{ spaced: true },
 		);
 	}

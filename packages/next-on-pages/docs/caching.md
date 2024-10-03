@@ -1,14 +1,14 @@
 # Caching and Data Revalidation
 
-`@cloudflare/next-on-pages` comes with support for data revalidation and caching for fetch requests. This is done in our router and acts as an extension to Next.js' built-in functionality.
+`@fleek-platform/next-on-fleek` comes with support for data revalidation and caching for fetch requests. This is done in our router and acts as an extension to Next.js' built-in functionality.
 
-Caching in Next.js applications (thus applications built using `@cloudflare/next-on-pages` as well) is enabled by default. If you wish to opt-out of this caching please refer to the [official Next.js documentation](https://nextjs.org/docs/app/building-your-application/caching#opting-out-1).
+Caching in Next.js applications (thus applications built using `@fleek-platform/next-on-fleek` as well) is enabled by default. If you wish to opt-out of this caching please refer to the [official Next.js documentation](https://nextjs.org/docs/app/building-your-application/caching#opting-out-1).
 
-Also please note that the cache is persisted across deployments, again inline with what the [Next.js documented behavior](https://nextjs.org/docs/app/building-your-application/caching#data-cache). You are responsible for revalidating/purging this cache. It is not handled for you by `@cloudflare/next-on-pages` or Cloudflare Pages.
+Also please note that the cache is persisted across deployments, again inline with what the [Next.js documented behavior](https://nextjs.org/docs/app/building-your-application/caching#data-cache). You are responsible for revalidating/purging this cache. It is not handled for you by `@fleek-platform/next-on-fleek` or Cloudflare Pages.
 
 ## Storage Options
 
-There are currently two different storage options that `@cloudflare/next-on-pages` supports, the Cache API and Workers KV.
+There are currently two different storage options that `@fleek-platform/next-on-fleek` supports, the Cache API and Workers KV.
 
 In the future, support will be available for creating custom cache interfaces and using different bindings.
 

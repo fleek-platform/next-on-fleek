@@ -17,14 +17,14 @@ async function runNextOnPages(): Promise<void> {
 		return;
 	}
 
-	cliLog(`@cloudflare/next-on-pages CLI v.${nextOnPagesVersion}`);
+	cliLog(`@fleek-platform/next-on-fleek CLI v.${nextOnPagesVersion}`);
 
 	if (isWindows()) {
 		cliWarn(
-			`Warning: It seems like you're on a Windows system, the Vercel CLI (run by @cloudflare/next-on-pages
+			`Warning: It seems like you're on a Windows system, the Vercel CLI (run by @fleek-platform/next-on-fleek
 			to build your application) seems not to work reliably on Windows so if you experience issues during
 			the build process please try switching to a different operating system or running
-			@cloudflare/next-on-pages under the Windows Subsystem for Linux`,
+			@fleek-platform/next-on-fleek under the Windows Subsystem for Linux`,
 			{ spaced: true },
 		);
 	}

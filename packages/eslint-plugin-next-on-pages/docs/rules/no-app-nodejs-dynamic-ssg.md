@@ -1,4 +1,4 @@
-# `next-on-pages/no-app-nodejs-dynamic-ssg`
+# `next-on-fleek/no-app-nodejs-dynamic-ssg`
 
 When using [`generateStaticParams`](https://nextjs.org/docs/app/api-reference/functions/generate-static-params) you need to either:
 

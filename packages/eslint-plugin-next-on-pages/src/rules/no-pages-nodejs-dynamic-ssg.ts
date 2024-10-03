@@ -110,7 +110,7 @@ const rule: Rule.RuleModule = {
 	meta: {
 		fixable: 'code',
 		docs: {
-			url: 'https://github.com/cloudflare/next-on-pages/blob/main/packages/eslint-plugin-next-on-pages/docs/rules/no-pages-nodejs-dynamic-ssg.md',
+			url: 'https://github.com/fleek-platform/next-on-fleek/blob/main/packages/eslint-plugin-next-on-fleek/docs/rules/no-pages-nodejs-dynamic-ssg.md',
 		},
 	},
 };

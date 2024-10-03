@@ -33,7 +33,7 @@ void (async function (): Promise<void> {
 		nextOnPagesDocumentedNextConfigs.length;
 
 	console.log(
-		`The number of next configs is ${numOfNextConfigs} the next-on-pages documented next configs are ${numOfNextOnPagesDocumentedNextConfigs}`,
+		`The number of next configs is ${numOfNextConfigs} the next-on-fleek documented next configs are ${numOfNextOnPagesDocumentedNextConfigs}`,
 	);
 	console.log(
 		`The number of undocumented next configs is ${undocumentedNextConfigs.length}`,
@@ -47,9 +47,9 @@ void (async function (): Promise<void> {
 		undocumentedNextConfigs.length > 0 ||
 		documentedNonNextConfigs.length > 0
 	) {
-		console.log('\nThe next-on-pages documentation is out of date');
+		console.log('\nThe next-on-fleek documentation is out of date');
 		console.log(
-			`The number of next configs is ${numOfNextConfigs} the next-on-pages documented next configs are ${numOfNextOnPagesDocumentedNextConfigs}`,
+			`The number of next configs is ${numOfNextConfigs} the next-on-fleek documented next configs are ${numOfNextOnPagesDocumentedNextConfigs}`,
 		);
 		console.log('============================================');
 		console.log('The following configs are undocumented:');
@@ -71,7 +71,7 @@ void (async function (): Promise<void> {
 			);
 		}
 	} else {
-		console.log('\nThe next-on-pages documentation is up to date');
+		console.log('\nThe next-on-fleek documentation is up to date');
 
 		if (fromGithub) {
 			setOutput('result', 'up-of-date');
@@ -93,11 +93,11 @@ void (async function (): Promise<void> {
 		nextOnPagesDocumentedNextConfigs.length === 0;
 	if (noNextOnPagesConfigsDetected) {
 		console.log(
-			'\nERROR! No next-on-pages configs were detected, the docs might have changed!',
+			'\nERROR! No next-on-fleek configs were detected, the docs might have changed!',
 		);
 
 		if (fromGithub) {
-			setOutput('result', 'no-next-on-pages-configs-detected');
+			setOutput('result', 'no-next-on-fleek-configs-detected');
 		}
 	}
 })();

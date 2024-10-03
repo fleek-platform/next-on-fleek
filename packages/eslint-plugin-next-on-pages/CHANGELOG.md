@@ -1,4 +1,4 @@
-# eslint-plugin-next-on-pages
+# eslint-plugin-next-on-fleek
 
 ## 1.13.3
 

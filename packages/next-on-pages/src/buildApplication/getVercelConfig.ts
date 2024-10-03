@@ -110,7 +110,7 @@ function normalizeRouteSrc(route: VercelSource): void {
 
 	// we rely on locale root routes pointing to '/' to perform runtime checks
 	// so we cannot normalize such src values as that would break things later on
-	// see: https://github.com/cloudflare/next-on-pages/blob/654545/packages/next-on-pages/templates/_worker.js/routes-matcher.ts#L353-L358
+	// see: https://github.com/fleek-platform/next-on-fleek/blob/654545/packages/next-on-fleek/templates/_worker.js/routes-matcher.ts#L353-L358
 	if (route.locale && route.src === '/') return;
 
 	// Route src should always start with a '^'

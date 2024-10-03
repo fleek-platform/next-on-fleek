@@ -7,7 +7,7 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"pages:build": "npx @cloudflare/next-on-pages -md",
+		"pages:build": "npx @fleek-platform/next-on-fleek -md",
 		"pages:dev": "wrangler pages dev",
 		"preview": "npm run pages:build && wrangler pages dev",
 		"deploy": "npm run pages:build && wrangler pages deploy",
@@ -19,7 +19,7 @@
 		"react-dom": "^18"
 	},
 	"devDependencies": {
-		"@cloudflare/next-on-pages": "*",
+		"@fleek-platform/next-on-fleek": "*",
 		"@cloudflare/workers-types": "^4.20240529.0",
 		"@types/node": "^20",
 		"@types/react": "^18",

@@ -3,7 +3,7 @@
 		"issue797"
 	],
 	"buildConfig": {
-		"buildCommand": "npx --force ../../../packages/next-on-pages",
+		"buildCommand": "npx --force ../../../packages/next-on-fleek",
 		"buildOutputDirectory": ".vercel/output/static"
 	},
 	"deploymentConfig": {

@@ -18,12 +18,12 @@ const config: ESLint.Plugin = {
 	},
 	configs: {
 		recommended: {
-			plugins: ['eslint-plugin-next-on-pages'],
+			plugins: ['eslint-plugin-next-on-fleek'],
 			rules: {
-				'next-on-pages/no-nodejs-runtime': 'error',
-				'next-on-pages/no-unsupported-configs': 'error',
-				'next-on-pages/no-app-nodejs-dynamic-ssg': 'error',
-				'next-on-pages/no-pages-nodejs-dynamic-ssg': 'error',
+				'next-on-fleek/no-nodejs-runtime': 'error',
+				'next-on-fleek/no-unsupported-configs': 'error',
+				'next-on-fleek/no-app-nodejs-dynamic-ssg': 'error',
+				'next-on-fleek/no-pages-nodejs-dynamic-ssg': 'error',
 			},
 		},
 	},

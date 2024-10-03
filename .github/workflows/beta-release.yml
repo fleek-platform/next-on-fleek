@@ -9,7 +9,7 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   release:
-    if: ${{ github.repository_owner == 'cloudflare' }}
+    if: ${{ github.repository_owner == 'fleek-platform' }}
     name: Release
     runs-on: ubuntu-latest
     steps:
@@ -25,14 +25,14 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Publish next-on-pages Beta to NPM
-        working-directory: ./packages/next-on-pages
+      - name: Publish next-on-fleek Beta to NPM
+        working-directory: ./packages/next-on-fleek
         run: npm publish --tag beta
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Publish eslint-plugin-next-on-pages Beta to NPM
-        working-directory: ./packages/eslint-plugin-next-on-pages
+      - name: Publish eslint-plugin-next-on-fleek Beta to NPM
+        working-directory: ./packages/eslint-plugin-next-on-fleek
         run: npm publish --tag beta
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

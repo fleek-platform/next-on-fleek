@@ -9,7 +9,7 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
-		"@cloudflare/next-on-pages": "../../../packages/next-on-pages",
+		"@fleek-platform/next-on-fleek": "../../../packages/next-on-fleek",
 		"@types/node": "20.4.0",
 		"@types/react": "18.2.14",
 		"@types/react-dom": "18.2.6",

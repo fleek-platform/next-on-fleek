@@ -1,5 +1,5 @@
 {
-	"name": "@cloudflare/next-on-pages",
+	"name": "@fleek-platform/next-on-fleek",
 	"version": "1.13.3",
 	"bin": "./bin/index.js",
 	"exports": {
@@ -26,9 +26,8 @@
 		"build": "esbuild --bundle --platform=node ./src/index.ts ./src/api/index.ts --external:esbuild --external:chokidar --external:server-only --outdir=./dist",
 		"build:watch": "npm run build -- --watch=forever",
 		"build:no-nodejs-compat-error-page": "node ./build-no-nodejs-compat-flag-static-error-page.mjs",
-		"build:next-dev": "npm run build --workspace @cloudflare/next-on-pages-next-dev && rm -rf ./dist/next-dev && cp -R ../../internal-packages/next-dev/dist ./dist/next-dev",
 		"build:fetch-handler": "esbuild --bundle --platform=browser ./src/fetch-handler/index.ts --external:server-only --outdir=./dist/fetch-handler",
-		"postbuild": "npm run build:types && npm run build:no-nodejs-compat-error-page && npm run build:next-dev && npm run build:fetch-handler",
+		"postbuild": "npm run build:types && npm run build:no-nodejs-compat-error-page && npm run build:fetch-handler",
 		"prepare": "npm run build",
 		"test:unit": "npx vitest --config vitest.config.ts"
 	},
@@ -39,19 +38,20 @@
 		"no-nodejs-compat-flag-static-error-page/dist"
 	],
 	"keywords": [
-		"cloudflare",
-		"cloudflare pages",
+		"fleek",
+		"fleek functions",
 		"edge",
-		"nextjs"
+		"nextjs",
+		"next"
 	],
 	"license": "MIT",
-	"homepage": "https://github.com/cloudflare/next-on-pages#readme",
+	"homepage": "https://github.com/fleek-platform/next-on-fleek#readme",
 	"bugs": {
-		"url": "https://github.com/cloudflare/next-on-pages/issues"
+		"url": "https://github.com/fleek-platform/next-on-fleek/issues"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/cloudflare/next-on-pages.git"
+		"url": "https://github.com/fleek-platform/next-on-fleek.git"
 	},
 	"dependencies": {
 		"@fleek-platform/sdk": "^2.1.5",
@@ -74,9 +74,7 @@
 	},
 	"devDependencies": {
 		"@changesets/cli": "^2.26.0",
-		"@cloudflare/next-on-pages-next-dev": "*",
-		"@cloudflare/next-on-pages-tsconfig": "*",
-		"@cloudflare/workers-types": "^4.20230404.0",
+		"@fleek-platform/next-on-fleek-tsconfig": "*",
 		"@tsconfig/strictest": "^2.0.0",
 		"@types/cookie": "^0.5.1",
 		"@types/js-yaml": "^4.0.5",

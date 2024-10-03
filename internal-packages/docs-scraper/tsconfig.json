@@ -1,4 +1,4 @@
 {
-	"extends": "@cloudflare/next-on-pages-tsconfig/tsconfig.json",
+	"extends": "@fleek-platform/next-on-fleek-tsconfig/tsconfig.json",
 	"include": ["scripts", ".eslintrc.js"]
 }

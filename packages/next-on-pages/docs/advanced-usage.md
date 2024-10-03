@@ -12,7 +12,7 @@ To achieve this, next-on-pages exposes an option to use your own worker entrypoi
 
 ```ts
 // file: ./custom-entrypoint.ts
-import nextOnPagesHandler from '@cloudflare/next-on-pages/fetch-handler';
+import nextOnPagesHandler from '@fleek-platform/next-on-fleek/fetch-handler';
 
 export default {
 	async fetch(request, env, ctx) {
@@ -30,5 +30,5 @@ export default {
 2. Pass the entrypoint argument to the next-on-pages CLI with the path to your handler.
 
 ```sh
-npx @cloudflare/next-on-pages --custom-entrypoint=./custom-entrypoint.ts
+npx @fleek-platform/next-on-fleek --custom-entrypoint=./custom-entrypoint.ts
 ```

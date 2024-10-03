@@ -1,4 +1,4 @@
-import { getRequestContext } from '@cloudflare/next-on-pages';
+import { getRequestContext } from '@fleek-platform/next-on-fleek';
 
 export const runtime = 'edge';
 

@@ -32,7 +32,7 @@ async function getNextOnPagesDocumentedNextConfigs(
 	page: Page,
 ): Promise<string[]> {
 	await page.goto(
-		'https://github.com/cloudflare/next-on-pages/blob/main/packages/next-on-pages/docs/supported.md',
+		'https://github.com/fleek-platform/next-on-fleek/blob/main/packages/next-on-fleek/docs/supported.md',
 	);
 	const nextOnPagesDocumentedNextConfigs: string[] = await page.$$eval(
 		'h3:has( > a[href="#nextconfigjs-properties"]) ~ table > tbody > tr > td:first-child',

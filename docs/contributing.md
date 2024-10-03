@@ -6,7 +6,7 @@ No contribution is too small and all help moving the project forward!
 
 ## Submitting an bug report or feature request
 
-If you find an bug or want to request a feature, open a [new issue](https://github.com/cloudflare/next-on-pages/issues/new) documenting it, please try to fill as much of the requested information as possible as that will help us dealing with the issue more effectively.
+If you find an bug or want to request a feature, open a [new issue](https://github.com/fleek-platform/next-on-fleek/issues/new) documenting it, please try to fill as much of the requested information as possible as that will help us dealing with the issue more effectively.
 
 ## Pull Requests
 
@@ -20,7 +20,7 @@ Smaller PRs are preferred since they are easier to review and merge quickly. If 
 
 ### Not sure what to contribute on?
 
-If you're looking for something to help us with, what we believe would be most valuable to us is to either: try to implement Next.js functionality which we currently don't support (which you can see in the [Supported Versions and Features document](https://github.com/cloudflare/next-on-pages/blob/main/packages/next-on-pages/docs/supported.md)), or help us fix existing [issues](https://github.com/cloudflare/next-on-pages/issues).
+If you're looking for something to help us with, what we believe would be most valuable to us is to either: try to implement Next.js functionality which we currently don't support (which you can see in the [Supported Versions and Features document](https://github.com/fleek-platform/next-on-fleek/blob/main/packages/next-on-fleek/docs/supported.md)), or help us fix existing [issues](https://github.com/fleek-platform/next-on-fleek/issues).
 
 > For first time contributors, check out issues labeled as `good first issue` or `help wanted`.
 

@@ -196,7 +196,7 @@
 - 06de52e: add new `setupDevPlatform` while deprecating `setupDevBindings`
 
   Previously developers would provide their bindings as inline options passed to
-  the `setupDevBindings` function (see: https://github.com/cloudflare/next-on-pages/tree/main/internal-packages/next-dev#how-to-use-the-module)
+  the `setupDevBindings` function (see: https://github.com/fleek-platform/next-on-fleek/tree/main/internal-packages/next-dev#how-to-use-the-module)
 
   Such function has been deprecated and the new `setupDevPlatform` has been added instead as its replacement, the latter does not
   require users to use inline options but it reads and gathers the binding definitions from the user's `wrangler.toml` file instead,

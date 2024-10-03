@@ -1,5 +1,5 @@
 {
-	"name": "next-on-pages-monorepo",
+	"name": "next-on-fleek-monorepo",
 	"private": true,
 	"workspaces": [
 		"internal-packages/*",
@@ -18,7 +18,7 @@
 		"build": "FORCE_COLOR=1 turbo build",
 		"build:watch": "FORCE_COLOR=1 turbo build:watch",
 		"test:unit": "FORCE_COLOR=1 turbo test:unit",
-		"pretest:e2e": "npm run build -- --filter next-on-pages",
+		"pretest:e2e": "npm run build -- --filter next-on-fleek",
 		"test:e2e": "FORCE_COLOR=1 turbo test:e2e --filter pages-e2e",
 		"publish": "turbo build & changeset publish",
 		"changeset": "npx changeset"

@@ -37,11 +37,11 @@ describe('no-unsupported-configs', () => {
 					errors: [
 						{
 							message:
-								'The "compress" configuration is not supported by next-on-pages (and is unlikely to be supported in the future).',
+								'The "compress" configuration is not supported by next-on-fleek (and is unlikely to be supported in the future).',
 						},
 						{
 							message:
-								'The "serverRuntimeConfig" configuration is not supported by next-on-pages (and is unlikely to be supported in the future).',
+								'The "serverRuntimeConfig" configuration is not supported by next-on-fleek (and is unlikely to be supported in the future).',
 						},
 					],
 				},
@@ -78,7 +78,7 @@ describe('no-unsupported-configs', () => {
 					errors: [
 						{
 							message:
-								'The "compress" configuration is not supported by next-on-pages (and is unlikely to be supported in the future).',
+								'The "compress" configuration is not supported by next-on-fleek (and is unlikely to be supported in the future).',
 						},
 					],
 				},
@@ -125,7 +125,7 @@ describe('no-unsupported-configs', () => {
 					errors: [
 						{
 							message:
-								'The "compress" configuration is not supported by next-on-pages (and is unlikely to be supported in the future).',
+								'The "compress" configuration is not supported by next-on-fleek (and is unlikely to be supported in the future).',
 						},
 					],
 				},
@@ -155,7 +155,7 @@ describe('no-unsupported-configs', () => {
 					errors: [
 						{
 							message:
-								'The "compress" configuration is not supported by next-on-pages (and is unlikely to be supported in the future).',
+								'The "compress" configuration is not supported by next-on-fleek (and is unlikely to be supported in the future).',
 						},
 					],
 				},
@@ -187,7 +187,7 @@ describe('no-unsupported-configs', () => {
 					errors: [
 						{
 							message:
-								'The "distDir" configuration is not supported by next-on-pages (and is unlikely to be supported in the future).',
+								'The "distDir" configuration is not supported by next-on-fleek (and is unlikely to be supported in the future).',
 						},
 					],
 				},
@@ -221,11 +221,11 @@ describe('no-unsupported-configs', () => {
 					errors: [
 						{
 							message:
-								'The "assetPrefix" configuration is not currently supported by next-on-pages.',
+								'The "assetPrefix" configuration is not currently supported by next-on-fleek.',
 						},
 						{
 							message:
-								'The "incrementalCacheHandlerPath" configuration is not currently supported by next-on-pages.',
+								'The "incrementalCacheHandlerPath" configuration is not currently supported by next-on-fleek.',
 						},
 					],
 				},
@@ -259,11 +259,11 @@ describe('no-unsupported-configs', () => {
 					errors: [
 						{
 							message:
-								'The "invalidTestConfig1" configuration is not recognized by next-on-pages (it might or might not be supported).',
+								'The "invalidTestConfig1" configuration is not recognized by next-on-fleek (it might or might not be supported).',
 						},
 						{
 							message:
-								'The "invalidTestConfig2" configuration is not recognized by next-on-pages (it might or might not be supported).',
+								'The "invalidTestConfig2" configuration is not recognized by next-on-fleek (it might or might not be supported).',
 						},
 					],
 				},
@@ -296,19 +296,19 @@ describe('no-unsupported-configs', () => {
 					errors: [
 						{
 							message:
-								'The "compress" configuration is not supported by next-on-pages (and is unlikely to be supported in the future).',
+								'The "compress" configuration is not supported by next-on-fleek (and is unlikely to be supported in the future).',
 						},
 						{
 							message:
-								'The "invalidTestConfig1" configuration is not recognized by next-on-pages (it might or might not be supported).',
+								'The "invalidTestConfig1" configuration is not recognized by next-on-fleek (it might or might not be supported).',
 						},
 						{
 							message:
-								'The "serverRuntimeConfig" configuration is not supported by next-on-pages (and is unlikely to be supported in the future).',
+								'The "serverRuntimeConfig" configuration is not supported by next-on-fleek (and is unlikely to be supported in the future).',
 						},
 						{
 							message:
-								'The "invalidTestConfig2" configuration is not recognized by next-on-pages (it might or might not be supported).',
+								'The "invalidTestConfig2" configuration is not recognized by next-on-fleek (it might or might not be supported).',
 						},
 					],
 				},
@@ -321,19 +321,19 @@ describe('no-unsupported-configs', () => {
 					errors: [
 						{
 							message:
-								'The "compress" configuration is not supported by next-on-pages (and is unlikely to be supported in the future).',
+								'The "compress" configuration is not supported by next-on-fleek (and is unlikely to be supported in the future).',
 						},
 						{
 							message:
-								'The "invalidTestConfig1" configuration is not recognized by next-on-pages (it might or might not be supported).',
+								'The "invalidTestConfig1" configuration is not recognized by next-on-fleek (it might or might not be supported).',
 						},
 						{
 							message:
-								'The "serverRuntimeConfig" configuration is not supported by next-on-pages (and is unlikely to be supported in the future).',
+								'The "serverRuntimeConfig" configuration is not supported by next-on-fleek (and is unlikely to be supported in the future).',
 						},
 						{
 							message:
-								'The "invalidTestConfig2" configuration is not recognized by next-on-pages (it might or might not be supported).',
+								'The "invalidTestConfig2" configuration is not recognized by next-on-fleek (it might or might not be supported).',
 						},
 					],
 				},
@@ -346,11 +346,11 @@ describe('no-unsupported-configs', () => {
 					errors: [
 						{
 							message:
-								'The "compress" configuration is not supported by next-on-pages (and is unlikely to be supported in the future).',
+								'The "compress" configuration is not supported by next-on-fleek (and is unlikely to be supported in the future).',
 						},
 						{
 							message:
-								'The "serverRuntimeConfig" configuration is not supported by next-on-pages (and is unlikely to be supported in the future).',
+								'The "serverRuntimeConfig" configuration is not supported by next-on-fleek (and is unlikely to be supported in the future).',
 						},
 					],
 				},
@@ -363,11 +363,11 @@ describe('no-unsupported-configs', () => {
 					errors: [
 						{
 							message:
-								'The "compress" configuration is not supported by next-on-pages (and is unlikely to be supported in the future).',
+								'The "compress" configuration is not supported by next-on-fleek (and is unlikely to be supported in the future).',
 						},
 						{
 							message:
-								'The "serverRuntimeConfig" configuration is not supported by next-on-pages (and is unlikely to be supported in the future).',
+								'The "serverRuntimeConfig" configuration is not supported by next-on-fleek (and is unlikely to be supported in the future).',
 						},
 					],
 				},
@@ -409,7 +409,7 @@ describe('no-unsupported-configs', () => {
 					errors: [
 						{
 							message:
-								'The "experimental/turbo" configuration is not currently supported by next-on-pages.',
+								'The "experimental/turbo" configuration is not currently supported by next-on-fleek.',
 						},
 					],
 				},
@@ -448,15 +448,15 @@ describe('no-unsupported-configs', () => {
 					errors: [
 						{
 							message:
-								'The "experimental/invalidExpTestConfig1" configuration is not recognized by next-on-pages (it might or might not be supported).',
+								'The "experimental/invalidExpTestConfig1" configuration is not recognized by next-on-fleek (it might or might not be supported).',
 						},
 						{
 							message:
-								'The "experimental/invalidExpTestConfig2" configuration is not recognized by next-on-pages (it might or might not be supported).',
+								'The "experimental/invalidExpTestConfig2" configuration is not recognized by next-on-fleek (it might or might not be supported).',
 						},
 						{
 							message:
-								'The "invalidNested" configuration is not recognized by next-on-pages (it might or might not be supported).',
+								'The "invalidNested" configuration is not recognized by next-on-fleek (it might or might not be supported).',
 						},
 					],
 				},
@@ -490,7 +490,7 @@ describe('no-unsupported-configs', () => {
 					errors: [
 						{
 							message:
-								'The "compress" configuration is not supported by next-on-pages (and is unlikely to be supported in the future).',
+								'The "compress" configuration is not supported by next-on-fleek (and is unlikely to be supported in the future).',
 						},
 					],
 				},

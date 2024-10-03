@@ -39,28 +39,3 @@ jobs:
 
       - name: Run Script
         run: npm run ${{ matrix.check.script }} -- --cache-dir ./turbo-cache
-  e2e-tests:
-    name: e2e tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup Node
-        uses: ./.github/actions/node-setup
-        with:
-          # the e2es have continuous issues with node modules, it seems to be
-          # related to caching (probably because the various fixtures run `npm i`
-          # themselves), so for the time being we skip node modules caching here
-          skip-caching: true
-
-      - name: Run e2e tests
-        uses: nick-fields/retry@v2
-        with:
-          max_attempts: 3
-          timeout_minutes: 10
-          command: rm -rf ./pages-e2e/test-workspaces ./pages-e2e/workspaces && npm run test:e2e -- -- --log-timestamp
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-          PROJECT_NAME: ${{ vars.PROJECT_NAME }}
