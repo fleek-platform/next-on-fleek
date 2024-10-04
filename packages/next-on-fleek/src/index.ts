@@ -47,8 +47,6 @@ export async function runNextOnPages(args: CliOptions): Promise<void> {
 	if (args.watch) {
 		setWatchMode(async () => runBuild(args));
 	}
-
-	process.exit(0);
 }
 
 async function runBuild(options: CliOptions) {
