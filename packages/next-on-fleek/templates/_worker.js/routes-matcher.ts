@@ -27,7 +27,7 @@ function tryDecode(str: string, decode: (str: string) => string) {
 	}
 }
 
-function parse(str: string, options: { decode?: (str: string) => string }) {
+function parse(str: string, options?: { decode?: (str: string) => string }) {
 	if (typeof str !== 'string') {
 		throw new TypeError('argument str must be a string');
 	}

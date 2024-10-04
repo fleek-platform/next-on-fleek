@@ -103,6 +103,8 @@ async function generateResponse(
 		// If the path is an URL from matching, that means it was rewritten to a full URL.
 		const url = new URL(path);
 		applySearchParams(url.searchParams, searchParams);
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
 		resp = await fetch(url, reqCtx.request);
 	} else {
 		// Otherwise, we need to serve a file from the Vercel build output.

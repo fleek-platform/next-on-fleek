@@ -51,6 +51,10 @@ describe('processVercelOutput', () => {
 		);
 
 		const expected: ProcessedVercelOutput = {
+			cids: {
+				rootCid: 'rootCid',
+				cidMap: {},
+			},
 			vercelConfig: {
 				version: 3,
 				routes: {
@@ -127,6 +131,10 @@ describe('processVercelOutput', () => {
 		);
 
 		const expected: ProcessedVercelOutput = {
+			cids: {
+				rootCid: 'rootCid',
+				cidMap: {},
+			},
 			vercelConfig: {
 				version: 3,
 				routes: {
@@ -310,6 +318,10 @@ describe('processVercelOutput', () => {
 		);
 
 		const expected: ProcessedVercelOutput = {
+			cids: {
+				rootCid: 'rootCid',
+				cidMap: {},
+			},
 			vercelConfig: {
 				version: 3,
 				routes: {

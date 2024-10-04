@@ -1,10 +1,10 @@
 {
 	"extends": "@fleek-platform/next-on-fleek-tsconfig/tsconfig.json",
-	"include": ["src/api"],
+	"include": ["src", "vercel.types.d.ts"],
 	"compilerOptions": {
 		"emitDeclarationOnly": true,
 		"declaration": true,
 		"declarationMap": true,
-		"outDir": "dist/api"
+		"outDir": "dist"
 	}
 }

@@ -90,6 +90,8 @@ export async function runOrFetchBuildOutputItem(
 		switch (item?.type) {
 			case 'function':
 			case 'middleware': {
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-ignore
 				const edgeFunction: EdgeFunction = item.handler;
 				try {
 					resp = await edgeFunction.default(req, ctx);

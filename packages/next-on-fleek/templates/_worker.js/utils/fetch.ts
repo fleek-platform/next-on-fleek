@@ -16,13 +16,16 @@ export function patchFetch(): void {
 
 function applyPatch() {
 	const originalFetch = globalThis.fetch;
-
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-ignore
 	globalThis.fetch = async (...args) => {
 		const request = new Request(...args);
 
 		let response = await handleInlineAssetRequest(request);
 		if (response) return response;
 
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
 		response = await handleSuspenseCacheRequest(request);
 		if (response) return response;
 
@@ -50,9 +53,9 @@ async function handleInlineAssetRequest(request: Request) {
 		try {
 			const url = new URL(request.url);
 			const pathname = url.pathname;
-			// const noExt = url.pathname.replace(/.html$/, '');
-			// const withExt = `${noExt.replace(/^\/$/, '/index')}.html`;
 
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-ignore
 			const builtUrl = `https://${globalThis.cid}.ipfs.flk-ipfs.xyz/_worker.js/__next-on-pages-dist__/assets/${pathname}`;
 
 			const response = await fetch(builtUrl);
@@ -67,8 +70,11 @@ async function handleInlineAssetRequest(request: Request) {
 	return null;
 }
 
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 globalThis.ASSETS = {
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-ignore
 	fetch: async req => {
 		try {
 			console.log('fetching asset', req.url);
@@ -81,6 +87,8 @@ globalThis.ASSETS = {
 			}
 
 			const response = await fetch(
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-ignore
 				`https://${globalThis.cid}.ipfs.flk-ipfs.xyz${assetPath}`,
 			);
 			return Promise.resolve(response);

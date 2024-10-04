@@ -116,7 +116,7 @@ export async function printEnvInfo(): Promise<void> {
 			Version: ${os.version()}
 			CPU: (${os.cpus().length}) ${os.arch()} ${os.cpus()[0]?.model}
 			Memory: ${Math.round(os.totalmem() / 1024 / 1024 / 1024)} GB
-			Shell: ${process.env.SHELL?.toString() ?? 'Unknown'}` +
+			Shell: ${process.env['SHELL']?.toString() ?? 'Unknown'}` +
 			pmInfo +
 			`
 		Relevant Packages:

@@ -79,7 +79,7 @@ export async function buildWorkerFile(
 		target: 'es2022',
 		platform: 'neutral',
 		bundle: false,
-		minify: false,
+		minify,
 		loader: { '.ttf': 'file' },
 	} as const;
 

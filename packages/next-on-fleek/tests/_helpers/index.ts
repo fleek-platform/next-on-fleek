@@ -227,6 +227,8 @@ export async function createRouterTestData(
 
 	const staticAssets = await getVercelStaticAssets();
 
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-ignore
 	const { vercelConfig, vercelOutput } = processVercelOutput(
 		rawVercelConfig,
 		staticAssets,
@@ -242,23 +244,20 @@ export async function createRouterTestData(
 		{} as VercelBuildOutput,
 	);
 
-	const staticAssetsForFetcher = staticAssets.reduce(
-		(acc, path) => {
-			const newAcc = { ...acc };
+	const staticAssetsForFetcher = staticAssets.reduce((acc, path) => {
+		const newAcc = { ...acc };
 
-			const item = buildOutput[path];
-			const contentType =
-				(item?.type === 'override' && item.headers?.['content-type']) ||
-				'text/plain;charset=UTF-8';
+		const item = buildOutput[path];
+		const contentType =
+			(item?.type === 'override' && item.headers?.['content-type']) ||
+			'text/plain;charset=UTF-8';
 
-			const fsPath = join(resolve('.vercel', 'output', 'static'), path);
-			const data = readFileSync(fsPath, 'utf-8');
+		const fsPath = join(resolve('.vercel', 'output', 'static'), path);
+		const data = readFileSync(fsPath, 'utf-8');
 
-			newAcc[path] = { data, type: contentType };
-			return newAcc;
-		},
-		{} as Record<string, Asset>,
-	);
+		newAcc[path] = { data, type: contentType };
+		return newAcc;
+	}, {} as Record<string, Asset>);
 
 	const assetsFetcher = new MockAssetFetcher(
 		staticAssetsForFetcher,

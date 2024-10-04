@@ -24,6 +24,8 @@ describe('buildSummary', () => {
 			'/static-b',
 			'/_next/static-d',
 		];
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
 		const processedVercelOutput: ProcessedVercelOutput = {
 			vercelConfig: {} as ProcessedVercelConfig,
 			vercelOutput: new Map<string, BuildOutputFunction>([
@@ -121,6 +123,8 @@ describe('buildSummary', () => {
 			.mockImplementation(() => null);
 
 		const staticAssets = ['/static-one', '/static-two'];
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
 		const processedVercelOutput: ProcessedVercelOutput = {
 			vercelConfig: {} as ProcessedVercelConfig,
 			vercelOutput: new Map<string, BuildOutputFunction>([

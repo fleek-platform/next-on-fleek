@@ -44,5 +44,7 @@ const async_hooks = {
   },
 };
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 globalThis.AsyncLocalStorage = async_hooks.AsyncLocalStorage;
 module.exports = async_hooks;

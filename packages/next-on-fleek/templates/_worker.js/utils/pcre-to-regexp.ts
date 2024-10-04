@@ -12,6 +12,8 @@ export function createPCRE(
 	const hasDelim = /^[^a-zA-Z\\\s]/.test(pattern);
 	if (hasDelim) {
 		delim = pattern[0];
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
 		const lastDelimIndex = pattern.lastIndexOf(delim);
 
 		// pull out the flags in the pattern
@@ -38,6 +40,8 @@ export function createPCRE(
 			}
 			const capture = group.substring(match[0].length, group.length - 1);
 			if (namedCaptures) {
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-ignore
 				namedCaptures[numGroups] = match[1];
 			}
 			numGroups++;
@@ -66,14 +70,7 @@ export function createPCRE(
 	// TODO: handle lots more stuff....
 	// http://www.php.net/manual/en/reference.pcre.pattern.syntax.php
 
-	return new PCRE(
-		pattern,
-		flags,
-		namedCaptures,
-		originalPattern,
-		flags,
-		delim,
-	);
+	return new PCRE(pattern, flags, namedCaptures, originalPattern, flags, delim);
 }
 
 /**

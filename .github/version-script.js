@@ -2,7 +2,7 @@ const fs = require('fs');
 const { exec } = require('child_process');
 
 try {
-	const nextOnPagesPackage = JSON.parse(
+	const nextOnFleekPackage = JSON.parse(
 		fs.readFileSync('./packages/next-on-fleek/package.json'),
 	);
 	const eslintPluginPackage = JSON.parse(
@@ -15,18 +15,18 @@ try {
 			process.exit(1);
 		}
 		const version = '0.0.0-' + stdout.trim();
-		const nextOnPagesMetadata = {
+		const nextOnFleekMetadata = {
 			pullRequest: getPullRequestNumber(),
 			beta: getIsBeta(),
 		};
-		nextOnPagesPackage.version = version;
-		nextOnPagesPackage.nextOnPagesMetadata = nextOnPagesMetadata;
+		nextOnFleekPackage.version = version;
+		nextOnFleekPackage.nextOnFleekMetadata = nextOnFleekMetadata;
 		eslintPluginPackage.version = version;
-		nextOnPagesPackage.nextOnPagesMetadata = nextOnPagesMetadata;
+		nextOnFleekPackage.nextOnFleekMetadata = nextOnFleekMetadata;
 
 		fs.writeFileSync(
 			'./packages/next-on-fleek/package.json',
-			JSON.stringify(nextOnPagesPackage, null, '\t') + '\n',
+			JSON.stringify(nextOnFleekPackage, null, '\t') + '\n',
 		);
 		fs.writeFileSync(
 			'./packages/eslint-plugin-next-on-fleek/package.json',

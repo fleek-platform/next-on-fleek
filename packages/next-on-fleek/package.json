@@ -3,6 +3,7 @@
 	"version": "1.14.0",
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
+	"types": "./dist/src/index.d.ts",
 	"exports": {
 		".": {
 			"import": "./dist/api/index.js",
@@ -21,9 +22,8 @@
 	"scripts": {
 		"lint": "eslint src templates",
 		"types-check": "tsc --noEmit",
-		"build:types:api": "tsc -p tsconfig.api.json",
-		"build:types:fetch-handler": "tsc -p tsconfig.api.json",
-		"build:types": "npm run build:types:api && npm run build:types:fetch-handler",
+		"build:types:index": "tsc -p tsconfig.index.json",
+		"build:types": "npm run build:types:index",
 		"build": "esbuild --bundle --platform=node ./src/index.ts ./src/api/index.ts --external:esbuild --external:chokidar --external:server-only --outdir=./dist",
 		"build:watch": "npm run build -- --watch=forever",
 		"build:no-nodejs-compat-error-page": "node ./build-no-nodejs-compat-flag-static-error-page.mjs",

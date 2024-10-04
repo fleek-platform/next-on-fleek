@@ -24,6 +24,8 @@ export async function main(fleekRequest: FleekRequest): Promise<FleekResponse> {
 	if (url.pathname.startsWith('/_next/image')) {
 		const res = await handleImageResizingRequest(request, {
 			buildOutput: __BUILD_OUTPUT__,
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-ignore
 			assetsFetcher: globalThis.ASSETS,
 			imagesConfig: __CONFIG__.images,
 		});
@@ -35,7 +37,11 @@ export async function main(fleekRequest: FleekRequest): Promise<FleekResponse> {
 	const res = await handleRequest(
 		{
 			request: adjustedRequest,
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-ignore
 			ctx: globalThis.CONTEXT,
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-ignore
 			assetsFetcher: globalThis.ASSETS,
 		},
 		__CONFIG__,
@@ -62,6 +68,8 @@ async function adaptFetchResponseToFleekResponse(
 	const body = await response.text();
 	const headers = {};
 	response.headers.forEach((value, key) => {
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
 		headers[key] = value;
 	});
 
