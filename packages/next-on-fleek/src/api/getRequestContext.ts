@@ -1,4 +1,3 @@
-import 'server-only';
 import dedent from 'dedent-tabs';
 
 declare global {

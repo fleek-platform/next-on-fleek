@@ -1,13 +1,13 @@
 {
 	"name": "@fleek-platform/next-on-fleek",
-	"version": "1.14.1",
+	"version": "1.14.2",
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
 	"types": "./dist/src/index.d.ts",
 	"exports": {
 		".": {
-			"import": "./dist/api/index.js",
-			"types": "./dist/api/index.d.ts"
+			"import": "./dist/index.js",
+			"types": "./dist/src/index.d.ts"
 		},
 		"./fetch-handler": {
 			"import": "./dist/fetch-handler/index.js",
@@ -24,10 +24,10 @@
 		"types-check": "tsc --noEmit",
 		"build:types:index": "tsc -p tsconfig.index.json",
 		"build:types": "npm run build:types:index",
-		"build": "esbuild --bundle --platform=node ./src/index.ts ./src/api/index.ts --external:esbuild --external:chokidar --external:server-only --outdir=./dist",
+		"build": "esbuild --bundle --platform=node ./src/index.ts ./src/api/index.ts --external:esbuild --external:chokidar --outdir=./dist",
 		"build:watch": "npm run build -- --watch=forever",
 		"build:no-nodejs-compat-error-page": "node ./build-no-nodejs-compat-flag-static-error-page.mjs",
-		"build:fetch-handler": "esbuild --bundle --platform=browser ./src/fetch-handler/index.ts --external:server-only --outdir=./dist/fetch-handler",
+		"build:fetch-handler": "esbuild --bundle --platform=browser ./src/fetch-handler/index.ts --outdir=./dist/fetch-handler",
 		"postbuild": "npm run build:types && npm run build:no-nodejs-compat-error-page && npm run build:fetch-handler",
 		"prepare": "npm run build",
 		"test:unit": "npx vitest --config vitest.config.ts"
