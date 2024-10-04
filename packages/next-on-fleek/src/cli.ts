@@ -2,72 +2,11 @@ import os from 'os';
 import dedent from 'dedent-tabs';
 import type { ChalkInstance } from 'chalk';
 import chalk from 'chalk';
-import { join, resolve } from 'path';
 import { getPackageManager } from 'package-manager-manager';
 import {
 	getPackageVersionOrNull,
 	nextOnPagesVersion,
-	normalizePath,
 } from './utils';
-
-import { program, Option } from 'commander';
-
-program
-	.description(`@fleek-platform/next-on-fleek CLI v.${nextOnPagesVersion}`)
-	.allowExcessArguments(false)
-	.configureHelp({
-		commandUsage: () => '@fleek-platform/next-on-fleek [options]',
-	})
-	.helpOption(undefined, 'Shows this help message')
-	.addHelpText(
-		'after',
-		'\n' +
-			'GitHub: https://github.com/fleek-platform/next-on-fleek\n' +
-			'Docs: https://developers.cloudflare.com/pages/framework-guides/deploy-a-nextjs-site',
-	)
-	.addOption(
-		new Option('-e, --experimental-minify')
-			// Old flag that we kept in order not to introduce a breaking change, it is a noop one and should be removed in v2
-			.hideHelp(),
-	)
-	.addOption(
-		new Option(
-			'-d, --disableChunksDedup',
-			'Disables the chunks deduplication (this option is generally useful only for debugging purposes)',
-		)
-			// We don't currently document the disable chunks flag since we may need to significantly change the deduplication strategy
-			// when turbopack is introduces (see https://github.com/cloudflare/next-on-pages/pull/208/files#r1192279816)
-			.hideHelp(),
-	)
-	.option(
-		'-s, --skip-build',
-		'Skips the application Vercel build process (only runs the @fleek-platform/next-on-fleek build logic)',
-	)
-	.option(
-		'-m, --disable-worker-minification',
-		'Disables the minification of the _worker.js script performed to reduce its javascript size (this option is generally useful only for debugging purposes)',
-	)
-	.option('-w, --watch', 'Automatically rebuilds when the project is edited')
-	.option('-c, --no-color', 'Disables colored console outputs')
-	.option(
-		'-i, --info',
-		'Prints relevant details about the current system which can be used to report bugs',
-	)
-	.option(
-		'-o, --outdir <path>',
-		'Sets the directory to output the worker and static assets to',
-		join('.vercel', 'output', 'static'),
-	)
-	.option(
-		'--custom-entrypoint <path>',
-		'Wrap the generated worker for your application in a custom worker entrypoint',
-	)
-	.enablePositionalOptions(false)
-	.version(
-		nextOnPagesVersion,
-		'-v, --version',
-		'Shows the version of the package',
-	);
 
 export type CliOptions = {
 	skipBuild?: boolean;
@@ -80,13 +19,6 @@ export type CliOptions = {
 	outdir: string;
 	customEntrypoint?: string;
 };
-
-export function parseCliArgs(): CliOptions {
-	program.parse();
-	const args = program.opts<CliOptions>();
-	args.outdir = normalizePath(resolve(args.outdir));
-	return args;
-}
 
 type LogOptions = {
 	fromVercelCli?: boolean;

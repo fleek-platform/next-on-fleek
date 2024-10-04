@@ -1,17 +1,15 @@
 import { watch } from 'chokidar';
 import pLimit from 'p-limit';
 import type { CliOptions } from './cli';
-import { parseCliArgs, cliLog, cliWarn, cliError, printEnvInfo } from './cli';
+import { cliLog, cliWarn, cliError, printEnvInfo } from './cli';
 import { buildApplication } from './buildApplication';
 import { isWindows, nextOnPagesVersion } from './utils';
 
 const limit = pLimit(1);
 
-void runNextOnPages();
+export type { CliOptions };
 
-async function runNextOnPages(): Promise<void> {
-	const args = parseCliArgs();
-
+export async function runNextOnPages(args: CliOptions): Promise<void> {
 	if (args.info) {
 		await printEnvInfo();
 		return;

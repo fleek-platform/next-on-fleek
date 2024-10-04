@@ -1,7 +1,8 @@
 {
 	"name": "@fleek-platform/next-on-fleek",
-	"version": "1.13.3",
-	"bin": "./bin/index.js",
+	"version": "1.14.0",
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
 	"exports": {
 		".": {
 			"import": "./dist/api/index.js",
