@@ -1,9 +1,6 @@
 import type { FleekRequest, FleekResponse } from '../types';
 import { handleRequest } from './handleRequest';
-import {
-	adjustRequestForVercel,
-	handleImageResizingRequest,
-} from './utils';
+import { adjustRequestForVercel, handleImageResizingRequest } from './utils';
 
 declare const __CONFIG__: ProcessedVercelConfig;
 
@@ -29,7 +26,8 @@ export async function main(fleekRequest: FleekRequest): Promise<FleekResponse> {
 			assetsFetcher: globalThis.ASSETS,
 			imagesConfig: __CONFIG__.images,
 		});
-		return adaptFetchResponseToFleekResponse(res);
+		return res.bytes();
+		// return adaptFetchResponseToFleekResponse(res);
 	}
 
 	const adjustedRequest = adjustRequestForVercel(request);
@@ -55,7 +53,14 @@ export async function main(fleekRequest: FleekRequest): Promise<FleekResponse> {
 }
 
 function adaptFleekRequestToFetch(fleekRequest: FleekRequest): Request {
-	return new Request(new URL(`http://0.0.0.0${fleekRequest.path}`), {
+	const url = new URL(`http://0.0.0.0${fleekRequest.path}`);
+
+	// Add query parameters
+	for (const [key, value] of Object.entries(fleekRequest.query ?? {})) {
+		url.searchParams.append(key, value);
+	}
+
+	return new Request(url, {
 		method: fleekRequest.method,
 		headers: fleekRequest.headers,
 		body: fleekRequest.body,

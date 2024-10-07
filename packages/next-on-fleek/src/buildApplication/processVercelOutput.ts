@@ -1,6 +1,5 @@
 import { dirname, join, relative, resolve } from 'path';
 import { copyFile, mkdir, rm } from 'fs/promises';
-import { uploadDir } from '../utils/ipfs';
 import {
 	addLeadingSlash,
 	normalizePath,
@@ -103,7 +102,6 @@ export async function processOutputDir(
 }
 
 export type ProcessedVercelOutput = {
-	cids: { rootCid: string; cidMap: Record<string, string> };
 	vercelConfig: ProcessedVercelConfig;
 	vercelOutput: ProcessedVercelBuildOutput;
 };
@@ -130,16 +128,6 @@ export async function processVercelOutput(
 		staticAssets.map(path => [path, { type: 'static' }]),
 	);
 
-	// eslint-disable-next-line no-console
-	console.log('Uploading static assets to IPFS');
-	const cids: { rootCid: string; cidMap: Record<string, string> } = await uploadDir({
-		filePath: join('.vercel', 'output', 'static'),
-	});
-	// eslint-disable-next-line no-console
-	console.log('Uploaded static assets to IPFS', cids.rootCid);
-	// eslint-disable-next-line no-console
-	console.log('Uploaded static assets to IPFS', cids.cidMap);
-
 	edgeFunctions.forEach(({ relativePath, outputPath, route }) => {
 		processedOutput.set(route?.path ?? stripFuncExtension(relativePath), {
 			type: 'function',
@@ -165,7 +153,6 @@ export async function processVercelOutput(
 	);
 
 	return {
-		cids,
 		vercelConfig: processedConfig,
 		vercelOutput: processedOutput,
 	};

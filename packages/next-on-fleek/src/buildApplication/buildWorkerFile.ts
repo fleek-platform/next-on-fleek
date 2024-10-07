@@ -47,7 +47,7 @@ export function constructBuildOutputRecord(
 }
 
 export async function buildWorkerFile(
-	{ vercelConfig, vercelOutput, cids }: ProcessedVercelOutput,
+	{ vercelConfig, vercelOutput }: ProcessedVercelOutput,
 	{
 		outputDir,
 		workerJsDir,
@@ -85,13 +85,10 @@ export async function buildWorkerFile(
 
 	const outputFile = join(workerJsDir, 'index.js');
 
-	// print current dir
-	console.log('current dir', process.cwd());
-
 	await build({
 		...defaultBuildOpts,
 		entryPoints: [join(templatesDir, '_worker.js')],
-		banner: { js: generateGlobalJs(cids) },
+		banner: { js: generateGlobalJs() },
 		bundle: true,
 		inject: [functionsFile],
 		external: ['node:*', './__next-on-pages-dist__/*', 'cloudflare:*'],

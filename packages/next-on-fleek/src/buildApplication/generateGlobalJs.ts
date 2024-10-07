@@ -4,13 +4,8 @@
  *
  * @returns the plain javascript string that should be added at the top of the the _worker.js file
  */
-export function generateGlobalJs(cids: {
-	rootCid: string;
-	cidMap: Record<string, string>;
-}): string {
+export function generateGlobalJs(): string {
 	return `
-		globalThis.cid = "${cids.rootCid}";
-
 		const sharedGlobalProperties = new Set([
 			'_nextOriginalFetch',
 			'fetch',
@@ -106,7 +101,12 @@ export function generateGlobalJs(cids: {
 		globalThis.ASSETS = {
 			fetch: async req => {
 				try {
-					const { pathname } = new URL(req.url);
+					let pathname;
+					if (req instanceof URL) {
+						pathname = new URL(req).pathname;
+					} else {
+						pathname = new URL(req.url).pathname;
+					}
 
 					let assetPath = pathname;
 					if (!/\\.[^.]+$/.test(assetPath)) {
