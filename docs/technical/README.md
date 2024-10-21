@@ -1,6 +1,6 @@
 # Technical Documentation
 
-- [Lazy Loading](./lazy-loading.md)
+- [Lazy Loading (WIP)](./lazy-loading.md)
 
   Documentation explaining the lazy loading strategy used by `@fleek-platform/next-on-fleek` and how it allows loading and evaluating only the JavaScript code relevant to each request.
 

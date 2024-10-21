@@ -1,3 +1,4 @@
+import type { AsyncLocalStorage } from 'node:async_hooks';
 import type { FleekRequest, FleekResponse } from '../types';
 import { handleRequest } from './handleRequest';
 import { adjustRequestForVercel, handleImageResizingRequest } from './utils';
@@ -8,6 +9,11 @@ declare const __BUILD_OUTPUT__: VercelBuildOutput;
 
 declare const __BUILD_METADATA__: NextOnPagesBuildMetadata;
 
+declare const __ALSes_PROMISE__: Promise<null | {
+	envAsyncLocalStorage: AsyncLocalStorage<unknown>;
+	requestContextAsyncLocalStorage: AsyncLocalStorage<unknown>;
+}>;
+
 export type LogLevel = 'debug' | 'info' | 'warn' | 'error';
 
 export type LoggerOptions = {
@@ -17,39 +23,52 @@ export type LoggerOptions = {
 export async function main(fleekRequest: FleekRequest): Promise<FleekResponse> {
 	const request = adaptFleekRequestToFetch(fleekRequest);
 
-	const url = new URL(request.url);
-	if (url.pathname.startsWith('/_next/image')) {
-		const res = await handleImageResizingRequest(request, {
-			buildOutput: __BUILD_OUTPUT__,
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-ignore
-			assetsFetcher: globalThis.ASSETS,
-			imagesConfig: __CONFIG__.images,
-		});
-		return res.bytes();
-		// return adaptFetchResponseToFleekResponse(res);
+	const asyncLocalStorages = await __ALSes_PROMISE__;
+
+	if (!asyncLocalStorages) {
+		throw new Error('AsyncLocalStorages not found');
 	}
 
-	const adjustedRequest = adjustRequestForVercel(request);
+	const { envAsyncLocalStorage, requestContextAsyncLocalStorage } =
+		asyncLocalStorages;
 
-	const res = await handleRequest(
-		{
-			request: adjustedRequest,
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-ignore
-			ctx: globalThis.CONTEXT,
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-ignore
-			assetsFetcher: globalThis.ASSETS,
-		},
-		__CONFIG__,
-		__BUILD_OUTPUT__,
-		__BUILD_METADATA__,
-	);
+	return envAsyncLocalStorage.run({}, async () => {
+		return requestContextAsyncLocalStorage.run({ request }, async () => {
+			const url = new URL(request.url);
+			if (url.pathname.startsWith('/_next/image')) {
+				const res = await handleImageResizingRequest(request, {
+					buildOutput: __BUILD_OUTPUT__,
+					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+					// @ts-ignore
+					assetsFetcher: globalThis.ASSETS,
+					imagesConfig: __CONFIG__.images,
+				});
+				return res.bytes();
+				// return adaptFetchResponseToFleekResponse(res);
+			}
 
-	const response = await adaptFetchResponseToFleekResponse(res);
+			const adjustedRequest = adjustRequestForVercel(request);
 
-	return response;
+			const res = await handleRequest(
+				{
+					request: adjustedRequest,
+					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+					// @ts-ignore
+					ctx: globalThis.CONTEXT,
+					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+					// @ts-ignore
+					assetsFetcher: globalThis.ASSETS,
+				},
+				__CONFIG__,
+				__BUILD_OUTPUT__,
+				__BUILD_METADATA__,
+			);
+
+			const response = await adaptFetchResponseToFleekResponse(res);
+
+			return response;
+		});
+	});
 }
 
 function adaptFleekRequestToFetch(fleekRequest: FleekRequest): Request {
