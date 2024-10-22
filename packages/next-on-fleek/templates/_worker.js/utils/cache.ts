@@ -6,7 +6,7 @@ const CACHE_TAGS_HEADER = 'x-vercel-cache-tags';
 // https://github.com/vercel/next.js/blob/ba23d986/packages/next/src/lib/constants.ts#L18
 const NEXT_CACHE_SOFT_TAGS_HEADER = 'x-next-cache-soft-tags';
 
-const REQUEST_CONTEXT_KEY = Symbol.for('__cloudflare-request-context__');
+const REQUEST_CONTEXT_KEY = Symbol.for('__fleek-request-context__');
 
 /**
  * Handles an internal request to the suspense cache.

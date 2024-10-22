@@ -1,6 +1,6 @@
 {
 	"name": "@fleek-platform/next-on-fleek",
-	"version": "1.14.6",
+	"version": "1.14.7",
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
 	"types": "./dist/src/index.d.ts",

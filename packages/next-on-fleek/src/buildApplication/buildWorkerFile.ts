@@ -57,9 +57,6 @@ export async function buildWorkerFile(
 		minify,
 	}: BuildWorkerFileOpts,
 ): Promise<string> {
-	// eslint-disable-next-line no-console
-	console.log('Building worker file');
-
 	const functionsFile = join(
 		tmpdir(),
 		`functions-${Math.random().toString(36).slice(2)}.js`,

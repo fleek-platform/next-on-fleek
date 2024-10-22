@@ -14,8 +14,8 @@ type RequestContext<
 	ctx: Context;
 };
 
-const cloudflareRequestContextSymbol = Symbol.for(
-	'__cloudflare-request-context__',
+const fleekRequestContextSymbol = Symbol.for(
+	'__fleek-request-context__',
 );
 
 export function getOptionalRequestContext<
@@ -24,11 +24,11 @@ export function getOptionalRequestContext<
 >(): undefined | RequestContext<CfProperties, Context> {
 	const cloudflareRequestContext = (
 		globalThis as unknown as {
-			[cloudflareRequestContextSymbol]:
+			[fleekRequestContextSymbol]:
 				| RequestContext<CfProperties, Context>
 				| undefined;
 		}
-	)[cloudflareRequestContextSymbol];
+	)[fleekRequestContextSymbol];
 
 	if (inferRuntime() === 'nodejs') {
 		// no matter what, we want to throw if either
