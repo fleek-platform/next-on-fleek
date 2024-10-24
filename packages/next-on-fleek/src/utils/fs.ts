@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { readdir, readFile, stat, mkdir, copyFile } from 'node:fs/promises';
 import { resolve, dirname, join } from 'node:path';
+import { cliError } from '../cli';
 
 /**
  * Convert paths with backslashes to normalized paths with forward slashes.
@@ -124,8 +125,14 @@ export async function readPathsRecursively(dir: string): Promise<string[]> {
  * @param destFile Destination for the file.
  */
 export async function copyFileWithDir(sourceFile: string, destFile: string) {
-	await mkdir(dirname(destFile), { recursive: true });
-	await copyFile(sourceFile, destFile);
+	try {
+		await mkdir(dirname(destFile), { recursive: true });
+		await copyFile(sourceFile, destFile);
+	} catch (e) {
+		cliError(`Failed to copy file from ${sourceFile} to ${destFile}`, {
+			showReport: true,
+		});
+	}
 }
 
 /**

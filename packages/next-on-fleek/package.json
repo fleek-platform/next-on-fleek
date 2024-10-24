@@ -26,17 +26,15 @@
 		"build:types": "npm run build:types:index",
 		"build": "esbuild --bundle --platform=node ./src/index.ts ./src/api/index.ts --external:esbuild --external:chokidar --outdir=./dist",
 		"build:watch": "npm run build -- --watch=forever",
-		"build:no-nodejs-compat-error-page": "node ./build-no-nodejs-compat-flag-static-error-page.mjs",
 		"build:fetch-handler": "esbuild --bundle --platform=browser ./src/fetch-handler/index.ts --outdir=./dist/fetch-handler",
-		"postbuild": "npm run build:types && npm run build:no-nodejs-compat-error-page && npm run build:fetch-handler",
+		"postbuild": "npm run build:types && npm run build:fetch-handler",
 		"prepare": "npm run build",
 		"test:unit": "npx vitest --config vitest.config.ts"
 	},
 	"files": [
 		"bin",
 		"dist",
-		"templates",
-		"no-nodejs-compat-flag-static-error-page/dist"
+		"templates"
 	],
 	"keywords": [
 		"fleek",
@@ -55,7 +53,6 @@
 		"url": "https://github.com/fleek-platform/next-on-fleek.git"
 	},
 	"dependencies": {
-		"@fleek-platform/sdk": "^2.1.5",
 		"acorn": "^8.8.0",
 		"ast-types": "^0.14.2",
 		"chalk": "^5.2.0",

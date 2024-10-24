@@ -1,6 +1,5 @@
 import { exit } from 'process';
 import { join, resolve } from 'path';
-import { cp } from 'fs/promises';
 import { getPackageManager } from 'package-manager-manager';
 import type { CliOptions } from '../cli';
 import { cliError, cliLog, cliSuccess, cliWarn } from '../cli';
@@ -158,8 +157,6 @@ async function prepareAndBuildWorker(
 
 	await buildMetadataFiles(outputDir, { staticAssets });
 
-	await copyNoNodejsCompatStaticErrorPage(outputDir);
-
 	printBuildSummary(staticAssets, processedVercelOutput, processedFunctions);
 
 	await writeBuildInfo(
@@ -170,25 +167,4 @@ async function prepareAndBuildWorker(
 	);
 
 	cliSuccess(`Generated '${outputtedWorkerPath}'.`);
-}
-
-/**
- * Copies the no nodejs_compat static error page to the output directory
- *
- * @param outputDir path of the output directory
- */
-async function copyNoNodejsCompatStaticErrorPage(
-	outputDir: string,
-): Promise<void> {
-	const noNodejsCompatFlagStaticErrorPagePath = join(
-		__dirname,
-		'..',
-		'no-nodejs-compat-flag-static-error-page',
-		'dist',
-		'index.html',
-	);
-	await cp(
-		noNodejsCompatFlagStaticErrorPagePath,
-		join(outputDir, 'cdn-cgi', 'errors', 'no-nodejs_compat.html'),
-	);
 }
