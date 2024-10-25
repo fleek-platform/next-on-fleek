@@ -67,7 +67,7 @@ export function generateGlobalJs(): string {
 					const noExt = pathname.replace(/.html$/, '');
 					const withExt = \`\${noExt.replace(/^\\/$/, '/index')}.html\`;
 
-					const builtUrl = \`https://\${globalThis.cid}.ipfs.flk-ipfs.xyz/_worker.js/__next-on-pages-dist__/assets/\${pathname}\`;
+					const builtUrl = \`https://\${globalThis.cid}.ipfs.flk-ipfs.xyz/_worker.js/__next-on-fleek-dist__/assets/\${pathname}\`;
 					console.log('builtUrl', builtUrl);
 					
 					const response = await fetch(

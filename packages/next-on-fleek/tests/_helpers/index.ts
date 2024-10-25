@@ -220,7 +220,7 @@ export async function createRouterTestData(
 		functionsDir: join('.vercel', 'output', 'functions'),
 		outputDir,
 		workerJsDir: workerJsDir,
-		nopDistDir: join(workerJsDir, '__next-on-pages-dist__'),
+		nopDistDir: join(workerJsDir, '__next-on-fleek-dist__'),
 		disableChunksDedup: true,
 		vercelConfig: { version: 3 },
 	});

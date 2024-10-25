@@ -32,15 +32,15 @@ export function constructBuildOutputRecord(
 	}
 
 	const entrypoint = normalizePath(item.entrypoint.replace(outputDir, '')).replace(
-		/^\/_worker\.js\/__next-on-pages-dist__\//,
-		'./__next-on-pages-dist__/',
+		/^\/_worker\.js\/__next-on-fleek-dist__\//,
+		'./__next-on-fleek-dist__/',
 	);
 
 	return `{
 				type: ${JSON.stringify(item.type)},
 				entrypoint: '${normalizePath(item.entrypoint.replace(outputDir, '')).replace(
-					/^\/_worker\.js\/__next-on-pages-dist__\//,
-					'./__next-on-pages-dist__/',
+					/^\/_worker\.js\/__next-on-fleek-dist__\//,
+					'./__next-on-fleek-dist__/',
 				)}',
 				handler: await import('./${entrypoint}'),
 			}`;
@@ -88,7 +88,7 @@ export async function buildWorkerFile(
 		banner: { js: generateGlobalJs() },
 		bundle: true,
 		inject: [functionsFile],
-		external: ['node:*', './__next-on-pages-dist__/*', 'cloudflare:*'],
+		external: ['node:*', './__next-on-fleek-dist__/*', 'cloudflare:*'],
 		define: {
 			__CONFIG__: JSON.stringify(vercelConfig),
 			__NODE_ENV__: JSON.stringify(getNodeEnv()),

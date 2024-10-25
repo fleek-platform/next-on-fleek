@@ -121,7 +121,7 @@ async function prepareAndBuildWorker(
 
 	const functionsDir = resolve('.vercel', 'output', 'functions');
 	const workerJsDir = join(outputDir, '_worker.js');
-	const nopDistDir = join(workerJsDir, '__next-on-pages-dist__');
+	const nopDistDir = join(workerJsDir, '__next-on-fleek-dist__');
 	const templatesDir = join(__dirname, '..', 'templates');
 
 	if (!(await validateDir(functionsDir))) {

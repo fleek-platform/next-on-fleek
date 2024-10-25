@@ -56,7 +56,7 @@ async function handleInlineAssetRequest(request: Request) {
 
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-ignore
-			const builtUrl = `https://${globalThis.cid}.ipfs.flk-ipfs.xyz/_worker.js/__next-on-pages-dist__/assets/${pathname}`;
+			const builtUrl = `https://${globalThis.cid}.ipfs.flk-ipfs.xyz/_worker.js/__next-on-fleek-dist__/assets/${pathname}`;
 
 			const response = await fetch(builtUrl);
 			return Promise.resolve(response);

@@ -21,7 +21,7 @@ export async function buildFile(
 	const relativeNopDistPath = normalizePath(
 		join(
 			getRelativePathToAncestor({ from: filePath, relativeTo }),
-			'__next-on-pages-dist__',
+			'__next-on-fleek-dist__',
 		),
 	);
 
