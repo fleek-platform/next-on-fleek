@@ -56,7 +56,7 @@ async function handleInlineAssetRequest(request: Request) {
 
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-ignore
-			const builtUrl = `https://${globalThis.cid}.ipfs.flk-ipfs.xyz/_worker.js/__next-on-fleek-dist__/assets/${pathname}`;
+			const builtUrl = `https://${process.env.ASSETS_CID}.ipfs.flk-ipfs.xyz/_worker.js/__next-on-fleek-dist__/assets/${pathname}`;
 
 			const response = await fetch(builtUrl);
 			return Promise.resolve(response);
@@ -77,7 +77,6 @@ globalThis.ASSETS = {
 	// @ts-ignore
 	fetch: async req => {
 		try {
-			console.log('fetching asset', req.url);
 			const { pathname } = new URL(req.url);
 
 			let assetPath = pathname;
@@ -89,7 +88,7 @@ globalThis.ASSETS = {
 			const response = await fetch(
 				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 				// @ts-ignore
-				`https://${globalThis.cid}.ipfs.flk-ipfs.xyz${assetPath}`,
+				`https://${process.env.ASSETS_CID}.ipfs.flk-ipfs.xyz${assetPath}`,
 			);
 			return Promise.resolve(response);
 		} catch (error) {

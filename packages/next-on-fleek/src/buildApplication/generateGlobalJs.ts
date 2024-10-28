@@ -67,8 +67,7 @@ export function generateGlobalJs(): string {
 					const noExt = pathname.replace(/.html$/, '');
 					const withExt = \`\${noExt.replace(/^\\/$/, '/index')}.html\`;
 
-					const builtUrl = \`https://\${globalThis.cid}.ipfs.flk-ipfs.xyz/_worker.js/__next-on-fleek-dist__/assets/\${pathname}\`;
-					console.log('builtUrl', builtUrl);
+					const builtUrl = \`https://\${process.env.ASSETS_CID}.ipfs.flk-ipfs.xyz/_worker.js/__next-on-fleek-dist__/assets/\${pathname}\`;
 					
 					const response = await fetch(
 						builtUrl,
@@ -115,7 +114,7 @@ export function generateGlobalJs(): string {
 					}
 
 					const response = await fetch(
-						\`https://\${globalThis.cid}.ipfs.flk-ipfs.xyz\${assetPath}\`,
+						\`https://\${process.env.ASSETS_CID}.ipfs.flk-ipfs.xyz\${assetPath}\`,
 					);
 					return Promise.resolve(response);
 				} catch (error) {
