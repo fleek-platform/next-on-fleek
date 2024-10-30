@@ -145,8 +145,7 @@ async function adaptFleekRequestToFetch(
 async function adaptFetchResponseToFleekResponse(
 	response: Response,
 ): Promise<FleekResponse> {
-	const body = await response.text();
-	const headers = {};
+	const headers: Record<string, string> = {};
 	response.headers.forEach((value, key) => {
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
@@ -156,6 +155,6 @@ async function adaptFetchResponseToFleekResponse(
 	return {
 		status: response.status,
 		headers,
-		body,
+		body: await response.bytes(),
 	};
 }

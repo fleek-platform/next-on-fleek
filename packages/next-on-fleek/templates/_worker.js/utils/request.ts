@@ -1,5 +1,3 @@
-import { SUSPENSE_CACHE_URL } from '../../cache';
-
 /**
  * Adjusts the request so that it is formatted as if it were provided by Vercel
  *
@@ -25,8 +23,6 @@ export function adjustRequestForVercel(request: Request): Request {
 			request.cf.longitude as string,
 		);
 	}
-
-	adjustedHeaders.set('x-vercel-sc-host', SUSPENSE_CACHE_URL);
 
 	return new Request(request, { headers: adjustedHeaders });
 }

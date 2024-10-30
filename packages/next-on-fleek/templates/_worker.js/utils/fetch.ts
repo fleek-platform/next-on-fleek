@@ -1,5 +1,3 @@
-import { handleSuspenseCacheRequest } from './cache';
-
 /**
  * Patches the global fetch in ways necessary for Next.js (/next-on-fleek) applications
  * to work
@@ -21,12 +19,7 @@ function applyPatch() {
 	globalThis.fetch = async (...args) => {
 		const request = new Request(...args);
 
-		let response = await handleInlineAssetRequest(request);
-		if (response) return response;
-
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore
-		response = await handleSuspenseCacheRequest(request);
+		const response = await handleInlineAssetRequest(request);
 		if (response) return response;
 
 		setRequestUserAgentIfNeeded(request);

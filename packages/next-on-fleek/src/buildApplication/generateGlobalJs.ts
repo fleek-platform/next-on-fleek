@@ -86,11 +86,8 @@ export function generateGlobalJs(): string {
 		globalThis.fetch = async (...args) => {
 			const request = new Request(...args);
 
-			let response = await handleInlineAssetRequest(request);
+			const response = await handleInlineAssetRequest(request);
 			if (response) return response;
-
-			// response = await handleSuspenseCacheRequest(request);
-			// if (response) return response;
 
 			setRequestUserAgentIfNeeded(request);
 

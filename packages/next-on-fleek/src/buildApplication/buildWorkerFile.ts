@@ -51,7 +51,7 @@ export async function buildWorkerFile(
 	{
 		outputDir,
 		workerJsDir,
-		nopDistDir,
+		// nopDistDir,
 		templatesDir,
 		customEntrypoint,
 		minify,
@@ -100,13 +100,13 @@ export async function buildWorkerFile(
 		outfile: outputFile,
 	});
 
-	await build({
-		...defaultBuildOpts,
-		entryPoints: ['adaptor.ts', 'cache-api.ts', 'kv.ts'].map(fileName =>
-			join(templatesDir, 'cache', fileName),
-		),
-		outdir: join(nopDistDir, 'cache'),
-	});
+	// await build({
+	// 	...defaultBuildOpts,
+	// 	entryPoints: ['adaptor.ts', 'cache-api.ts', 'kv.ts'].map(fileName =>
+	// 		join(templatesDir, 'cache', fileName),
+	// 	),
+	// 	outdir: join(nopDistDir, 'cache'),
+	// });
 
 	if (customEntrypoint) {
 		cliLog(`Using custom worker entrypoint '${customEntrypoint}'`);
