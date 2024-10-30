@@ -134,7 +134,10 @@ async function adaptFleekRequestToFetch(
 	return new Request(url, {
 		method: fleekRequest.method,
 		headers: fleekRequest.headers,
-		body: fleekRequest.body,
+		body:
+			typeof fleekRequest.body === 'object'
+				? JSON.stringify(fleekRequest.body)
+				: fleekRequest.body,
 	});
 }
 
