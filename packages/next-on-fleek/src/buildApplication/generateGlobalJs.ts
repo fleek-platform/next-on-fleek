@@ -107,7 +107,7 @@ export function generateGlobalJs(): string {
 					let assetPath = pathname;
 					if (!/\\.[^.]+$/.test(assetPath)) {
 						const noExt = pathname.replace(/.html$/, '');
-						assetPath = \`\${noExt.replace(/^\\/$/, '/index')}.html\`;
+						assetPath = \`\${noExt.replace(/\\/$/, '/index')}.html\`;
 					}
 
 					const response = await fetch(
