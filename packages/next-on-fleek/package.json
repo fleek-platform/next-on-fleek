@@ -1,6 +1,6 @@
 {
 	"name": "@fleek-platform/next-on-fleek",
-	"version": "1.15.3",
+	"version": "1.15.4",
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
 	"types": "./dist/src/index.d.ts",
@@ -89,8 +89,7 @@
 	},
 	"peerDependencies": {
 		"@cloudflare/workers-types": "^4.20240208.0",
-		"vercel": ">=30.0.0",
-		"wrangler": "^3.28.2"
+		"vercel": ">=30.0.0"
 	},
 	"peerDependenciesMeta": {
 		"@cloudflare/workers-types": {
