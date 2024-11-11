@@ -88,8 +88,7 @@ export async function main(fleekRequest: FleekRequest): Promise<FleekResponse> {
 					assetsFetcher: globalThis.ASSETS,
 					imagesConfig: __CONFIG__.images,
 				});
-				return res.bytes();
-				// return adaptFetchResponseToFleekResponse(res);
+				return adaptFetchResponseToFleekResponse(res);
 			}
 
 			const adjustedRequest = adjustRequestForVercel(request);
